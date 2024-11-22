@@ -3,6 +3,9 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Code run
+vim.keymap.set('n', '<f9>', ':!python %<CR>')
+
 -- General keymaps
 vim.keymap.set('n', '<leader>wq', ':wq<CR>') -- save and quit
 vim.keymap.set('n', '<leader>qq', ':q!<CR>') -- quit without saving
