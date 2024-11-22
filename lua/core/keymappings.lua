@@ -3,6 +3,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Mason & Lazy fast
+vim.keymap.set('n', '<leader>l', ':Lazy<CR>') -- toggle git blame
+vim.keymap.set('n', '<leader>m', ':Mason<CR>') -- toggle git blame
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -39,5 +43,4 @@ vim.keymap.set('n', '<leader>er', ':NvimTreeFocus<CR>') -- toggle focus to file 
 vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFile<CR>') -- find file in file explorer
 
 -- Git-blame
-vim.keymap.set("n", "<leader>gb", ":GitBlameToggle<CR>") -- toggle git blame
-
+vim.keymap.set('n', '<leader>gb', ':GitBlameToggle<CR>') -- toggle git blame
