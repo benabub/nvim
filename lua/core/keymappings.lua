@@ -37,3 +37,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>ee', ':NvimTreeToggle<CR>') -- toggle file explorer
 vim.keymap.set('n', '<leader>er', ':NvimTreeFocus<CR>') -- toggle focus to file explorer
 vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFile<CR>') -- find file in file explorer
+
+-- Git-blame
+vim.keymap.set("n", "<leader>gb", ":GitBlameToggle<CR>") -- toggle git blame
+
