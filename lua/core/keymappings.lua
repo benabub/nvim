@@ -131,5 +131,8 @@ vim.keymap.set('n', '<leader>h/', function()
   harpoon:list():next()
 end)
 
+-- Vim-maximizer
+vim.keymap.set('n', '<leader>wm', ':MaximizerToggle<CR>') -- toggle maximize tab
+
 -- template
 -- vim.keymap.set('n', '<leader>h', "<cmd>lua <cr>")
