@@ -1,8 +1,3 @@
--- Set <space> as the leader key
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 -- Code run
 vim.keymap.set('n', '<f9>', ':!python %<CR>')
 
@@ -89,3 +84,52 @@ end)
 
 -- toggle nvim autopairs
 vim.keymap.set('n', '<leader><F8>', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
+
+-- Harpoon
+local harpoon = require 'harpoon'
+harpoon:setup()
+
+vim.keymap.set('n', '<leader>ha', function()
+  harpoon:list():add()
+end)
+vim.keymap.set('n', '<leader>hh', function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+
+vim.keymap.set('n', '<leader>h1', function()
+  harpoon:list():select(1)
+end)
+vim.keymap.set('n', '<leader>h2', function()
+  harpoon:list():select(2)
+end)
+vim.keymap.set('n', '<leader>h3', function()
+  harpoon:list():select(3)
+end)
+vim.keymap.set('n', '<leader>h4', function()
+  harpoon:list():select(4)
+end)
+vim.keymap.set('n', '<leader>h5', function()
+  harpoon:list():select(5)
+end)
+vim.keymap.set('n', '<leader>h6', function()
+  harpoon:list():select(6)
+end)
+vim.keymap.set('n', '<leader>h7', function()
+  harpoon:list():select(7)
+end)
+vim.keymap.set('n', '<leader>h8', function()
+  harpoon:list():select(8)
+end)
+vim.keymap.set('n', '<leader>h9', function()
+  harpoon:list():select(9)
+end)
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set('n', '<leader>h.', function()
+  harpoon:list():prev()
+end)
+vim.keymap.set('n', '<leader>h/', function()
+  harpoon:list():next()
+end)
+
+-- template
+-- vim.keymap.set('n', '<leader>h', "<cmd>lua <cr>")
