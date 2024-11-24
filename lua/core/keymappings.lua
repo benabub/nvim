@@ -86,3 +86,6 @@ vim.keymap.set('n', '<leader>dh', '<cmd>Telescope dap commands<cr>')
 vim.keymap.set('n', '<leader>de', function()
   require('telescope.builtin').diagnostics { default_text = ':E:' }
 end)
+
+-- toggle nvim autopairs
+vim.keymap.set('n', '<leader><F8>', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
