@@ -135,7 +135,7 @@ end)
 vim.keymap.set('n', '<leader>wm', ':MaximizerToggle<CR>') -- toggle maximize tab
 
 -- zen-mode.nvim
-vim.keymap.set('n', '<leader>zz', ':ZenMode<CR>')
+vim.keymap.set('n', '<leader>wz', ':ZenMode<CR>')
 
 -- template
 -- vim.keymap.set('n', '<leader>h', "<cmd>lua <cr>")
