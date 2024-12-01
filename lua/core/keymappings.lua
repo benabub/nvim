@@ -1,5 +1,5 @@
 -- Code run
-vim.keymap.set('n', '<f9>', ':!python %<CR>')
+vim.keymap.set('n', '<leader>rr', ':!python %<CR>')
 
 -- General keymaps
 vim.keymap.set('n', '<leader>wq', ':wq<CR>') -- save and quit
