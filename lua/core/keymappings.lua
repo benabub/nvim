@@ -165,5 +165,15 @@ vim.keymap.set('n', '<leader>wm', ':MaximizerToggle<CR>') -- toggle maximize tab
 -- zen-mode.nvim
 vim.keymap.set('n', '<leader>wz', ':ZenMode<CR>')
 
+-- Neotest
+vim.keymap.set('n', '<leader>tt', function()
+  require('neotest').run.run()
+end, { desc = 'Run nearest test' })
+vim.keymap.set('n', '<leader>tf', function()
+  require('neotest').run.run(vim.fn.expand '%')
+end, { desc = 'Run file test' })
+vim.keymap.set('n', '<leader>to', ':Neotest output<CR>', { desc = 'Show test output' })
+vim.keymap.set('n', '<leader>ts', ':Neotest summary<CR>', { desc = 'Show test summary' })
+
 -- template
 -- vim.keymap.set('n', '<leader>h', "<cmd>lua <cr>")
