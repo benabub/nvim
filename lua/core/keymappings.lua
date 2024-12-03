@@ -166,14 +166,32 @@ vim.keymap.set('n', '<leader>wm', ':MaximizerToggle<CR>') -- toggle maximize tab
 vim.keymap.set('n', '<leader>wz', ':ZenMode<CR>')
 
 -- Neotest
-vim.keymap.set('n', '<leader>tt', function()
+vim.keymap.set('n', '<leader>tn', function()
   require('neotest').run.run()
-end, { desc = 'Run nearest test' })
-vim.keymap.set('n', '<leader>tf', function()
-  require('neotest').run.run(vim.fn.expand '%')
-end, { desc = 'Run file test' })
-vim.keymap.set('n', '<leader>to', ':Neotest output<CR>', { desc = 'Show test output' })
-vim.keymap.set('n', '<leader>ts', ':Neotest summary<CR>', { desc = 'Show test summary' })
+end, { desc = 'Run nearest test in the file' })
 
--- template
+vim.keymap.set('n', '<leader>tt', function()
+  require('neotest').run.run(vim.fn.expand '%')
+end, { desc = 'Run all the tests in the file' })
+
+vim.keymap.set('n', '<leader>to', function()
+  require('neotest').output.open { enter = true }
+end, { desc = 'output.open' })
+
+vim.keymap.set('n', '<leader>ts', function()
+  require('neotest').summary.toggle()
+end, { desc = 'summary_toggle' })
+
+vim.keymap.set('n', '<leader>tw', function()
+  require('neotest').watch.watch()
+end, { desc = 'watch current test for changes' })
+
+-- Templates
+
 -- vim.keymap.set('n', '<leader>h', "<cmd>lua <cr>")
+
+-- vim.keymap.set('n', '<leader>to', ':lua require("neotest").output.open({enter = true})<CR>', { noremap = true, silent = true })
+
+-- vim.keymap.set('n', '<leader>to', function()
+--   require('neotest').output.open { enter = true }
+-- end, { desc = 'output.open' })
