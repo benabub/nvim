@@ -1,15 +1,15 @@
 return {
-{
-    "folke/noice.nvim",
-    event = { "BufReadPost", "BufNewFile" },
+  {
+    'folke/noice.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
-      "MunifTanjim/nui.nvim",
+      'MunifTanjim/nui.nvim',
       {
-        "rcarriga/nvim-notify",
-        name = "notify",
+        'rcarriga/nvim-notify',
+        name = 'notify',
         opts = {
           top_down = false,
-          stages = "static",
+          stages = 'static',
           -- stylua: ignore
           max_height = function() return math.floor(vim.o.lines * 0.75) end,
           -- stylua: ignore
@@ -20,12 +20,17 @@ return {
     -- stylua: ignore
     init = function() vim.opt.lazyredraw = false end,
     opts = {
-      messages = { view = "mini", view_warn = "mini" },
+      messages = { view = 'mini', view_warn = 'mini' },
       lsp = {
         override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
-          ["vim.lsp.util.stylize_markdown"] = false,
-          ["cmp.entry.get_documentation"] = false,
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = false,
+          ['vim.lsp.util.stylize_markdown'] = false,
+          ['cmp.entry.get_documentation'] = false,
+        },
+        signature = {
+          auto_open = {
+            trigger = false, -- Automatically show signature help when typing a trigger character from the LSP
+          },
         },
       },
       presets = {
@@ -36,7 +41,7 @@ return {
         lsp_doc_border = true,
       },
       routes = {
-        { filter = { event = "notify", find = "No information available" }, opts = { skip = true } },
+        { filter = { event = 'notify', find = 'No information available' }, opts = { skip = true } },
       },
     },
   },
