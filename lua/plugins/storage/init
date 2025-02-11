@@ -1,3 +1,0 @@
-Put the plugins you want to disable (but don't want to lose) in this folder. 
-If you put them back, it will be enable again. 
-Do not delete this file: the storage dir cannot be empty (for Git).
