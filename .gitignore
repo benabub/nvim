@@ -5,5 +5,5 @@ nvim
 
 spell/
 lazy-lock.json
-srorage/
-# lua/plugins/srorage/
+
+storage/
