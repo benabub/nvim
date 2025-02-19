@@ -1,9 +1,9 @@
-tags
-test.sh
-.luarc.json
-nvim
-
-spell/
+# tags
+# test.sh
+# nvim
+# spell/
 lazy-lock.json
+.luarc.json
 
 storage/
+pack/
