@@ -84,7 +84,7 @@ vim.keymap.set('n', '<leader>de', function()
 end)
 
 -- toggle nvim autopairs
-vim.keymap.set('n', '<leader><F8>', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
+vim.keymap.set('n', '<leader><F5>', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
 
 -- Harpoon
 local harpoon = require 'harpoon'
