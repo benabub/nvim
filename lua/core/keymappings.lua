@@ -8,6 +8,10 @@ vim.keymap.set('n', '<leader>ww', ':w<CR>') -- save
 vim.keymap.set('n', 'gx', ':!open <c-r><c-a><CR>') -- open URL under cursor
 vim.keymap.set('n', '<CR>', 'o<Esc>') -- new underline
 
+-- Line surrounding
+vim.keymap.set('n', '<leader>9', 'i(<Esc>A)<Esc>', { desc = 'Surround to the end' })
+vim.keymap.set('n', '<leader>0', 'i(<Esc>$i)<Esc>', { desc = 'Surround to :' })
+
 -- Mason & Lazy fast
 vim.keymap.set('n', '<leader>l', ':Lazy<CR>') -- toggle git blame
 vim.keymap.set('n', '<leader>m', ':Mason<CR>') -- toggle git blame
@@ -20,7 +24,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Terminal
-vim.keymap.set('n', '<F5>', ':ToggleTerm size=40 dir=~/Desktop direction=float name=desktop<CR>') -- toggle
+-- vim.keymap.set('n', '<F5>', ':ToggleTerm size=40 dir=~/Desktop direction=float name=desktop<CR>') -- toggle
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -79,7 +83,7 @@ vim.keymap.set('n', '<leader>de', function()
 end)
 
 -- toggle nvim autopairs
-vim.keymap.set('n', '<leader><F5>', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
+vim.keymap.set('n', '<leader>a', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
 
 -- Harpoon
 local harpoon = require 'harpoon'
