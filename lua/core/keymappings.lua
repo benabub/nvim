@@ -16,6 +16,15 @@ vim.keymap.set('n', '<leader>0', 'i(<Esc>$i)<Esc>', { desc = 'Surround to :' })
 vim.keymap.set('n', '<leader>l', ':Lazy<CR>') -- toggle git blame
 vim.keymap.set('n', '<leader>m', ':Mason<CR>') -- toggle git blame
 
+-- Copilot
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+vim.keymap.set('i', '<M-CR>', function()
+  vim.fn.feedkeys(vim.fn['copilot#Accept'](), 'n')
+end, { expr = true, silent = true })
+vim.keymap.set('i', '<M-]>', '<Plug>(copilot-next)')
+vim.keymap.set('i', '<M-[>', '<Plug>(copilot-previous)')
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
