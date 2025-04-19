@@ -24,6 +24,7 @@ vim.keymap.set('i', '<M-CR>', function()
 end, { expr = true, silent = true })
 vim.keymap.set('i', '<M-]>', '<Plug>(copilot-next)')
 vim.keymap.set('i', '<M-[>', '<Plug>(copilot-previous)')
+vim.keymap.set('n', '<leader>cc', ':CopilotChat ', { desc = 'CopilotChat query' })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
