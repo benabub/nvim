@@ -1,7 +1,4 @@
 lazy-lock.json
 .luarc.json
 
-pack/
-storage/*
-
 !.gitkeep
