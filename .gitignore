@@ -1,9 +1,7 @@
-# tags
-# test.sh
-# nvim
-# spell/
 lazy-lock.json
 .luarc.json
 
-storage/
 pack/
+storage/*
+
+!.gitkeep
