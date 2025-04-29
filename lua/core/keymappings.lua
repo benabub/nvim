@@ -3,7 +3,7 @@ vim.keymap.set('n', '<leader>rr', ':!python %<CR>')
 
 -- General keymaps
 vim.keymap.set('n', '<leader>wq', ':wq<CR>') -- save and quit
-vim.keymap.set('n', '<leader>``', ':q!<CR>') -- quit without saving
+vim.keymap.set('n', '<leader>`', ':q!<CR>') -- quit without saving
 vim.keymap.set('n', '<leader>ww', ':w<CR>') -- save
 vim.keymap.set('n', 'gx', ':!open <c-r><c-a><CR>') -- open URL under cursor
 vim.keymap.set('n', '<CR>', 'o<Esc>') -- new underline
