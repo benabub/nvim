@@ -15,6 +15,8 @@ map_insert_with_switch('n', '<A-i>', 'i')
 map_insert_with_switch('n', '<A-I>', 'I')
 map_insert_with_switch('n', '<A-a>', 'a')
 map_insert_with_switch('n', '<A-A>', 'A')
+map_insert_with_switch('n', '<A-o>', 'o')
+map_insert_with_switch('n', '<A-O>', 'O')
 
 --------------------------------------------------
 -- <Esc> handler for keyboard layout
