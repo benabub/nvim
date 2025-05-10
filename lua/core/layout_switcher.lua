@@ -1,12 +1,14 @@
 -- In/Out visual mode: Auto keyboard layout switch
 
+local switch_layout_script = '$HOME/.config/hypr/scripts/switch-keyboard-layout.sh'
+
 --------------------------------------------------
 -- Auto keyboard layout switch helpers
 --------------------------------------------------
 local function map_insert_with_switch(mode, key, insert_cmd)
   vim.keymap.set(mode, key, function()
     vim.api.nvim_feedkeys(insert_cmd, 'n', false)
-    vim.fn.system '$HOME/.config/hypr/scripts/SwitchKeyboardLayout.sh'
+    vim.fn.system(switch_layout_script)
   end)
 end
 
@@ -33,7 +35,7 @@ end
 
 vim.keymap.set('i', '<Esc>', function()
   if not is_us_layout() then
-    vim.fn.system '$HOME/.config/hypr/scripts/SwitchKeyboardLayout.sh'
+    vim.fn.system(switch_layout_script)
   end
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', false)
 end)
