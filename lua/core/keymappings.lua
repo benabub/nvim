@@ -16,6 +16,12 @@ vim.keymap.set('n', '<leader>0', 'i(<Esc>$i)<Esc>', { desc = 'Surround to :' })
 vim.keymap.set('n', '<leader>l', ':Lazy<CR>') -- toggle git blame
 vim.keymap.set('n', '<leader>m', ':Mason<CR>') -- toggle git blame
 
+-- Bookmarks
+vim.keymap.set({ 'n', 'v' }, 'mm', '<cmd>BookmarksMark<cr>', { desc = 'Mark current line into active BookmarkList.' })
+vim.keymap.set({ 'n', 'v' }, 'mo', '<cmd>BookmarksGoto<cr>', { desc = 'Go to bookmark at current active BookmarkList' })
+vim.keymap.set({ 'n', 'v' }, 'm1', '<cmd>BookmarksGotoPrev<cr>', { desc = 'Go to next bookmark in line number order' })
+vim.keymap.set({ 'n', 'v' }, 'm2', '<cmd>BookmarksGotoNext<cr>', { desc = 'Go to previous bookmark in line number order' })
+
 -- Copilot
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
