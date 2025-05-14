@@ -1,0 +1,6 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/lua-language-server/master/schema/json.schema",
+  "diagnostics": {
+    "globals": ["vim"]
+  }
+}
