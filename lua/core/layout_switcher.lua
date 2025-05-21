@@ -2,6 +2,31 @@
 
 local switch_layout_script = '$HOME/.config/hypr/scripts/switch-keyboard-layout.sh'
 
+-- Clean up existing layout-switching keymaps to prevent macro conflicts
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    -- Remove these mappings only if they exist
+    local mappings = {
+      { 'n', '<A-i>' },
+      { 'n', '<A-I>' },
+      { 'n', '<A-a>' },
+      { 'n', '<A-A>' },
+      { 'n', '<A-o>' },
+      { 'n', '<A-O>' },
+      { 'n', '<A-r>' },
+      { 'n', '<A-R>' },
+      { 'n', '<A-c>' },
+      { 'n', '<A-C>' },
+      { 'i', '<Esc>' },
+    }
+    for _, map in ipairs(mappings) do
+      if vim.fn.maparg(map[2], map[1]) ~= '' then
+        vim.keymap.del(map[1], map[2])
+      end
+    end
+  end,
+})
+
 --------------------------------------------------
 -- Auto keyboard layout switch helpers
 --------------------------------------------------
