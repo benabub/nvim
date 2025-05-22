@@ -2,36 +2,20 @@
 
 local switch_layout_script = '$HOME/.config/hypr/scripts/switch-keyboard-layout.sh'
 
--- Clean up existing layout-switching keymaps to prevent macro conflicts
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    -- Remove these mappings only if they exist
-    local mappings = {
-      { 'n', '<A-i>' },
-      { 'n', '<A-I>' },
-      { 'n', '<A-a>' },
-      { 'n', '<A-A>' },
-      { 'n', '<A-o>' },
-      { 'n', '<A-O>' },
-      { 'n', '<A-r>' },
-      { 'n', '<A-R>' },
-      { 'n', '<A-c>' },
-      { 'n', '<A-C>' },
-      { 'i', '<Esc>' },
-    }
-    for _, map in ipairs(mappings) do
-      if vim.fn.maparg(map[2], map[1]) ~= '' then
-        vim.keymap.del(map[1], map[2])
-      end
-    end
-  end,
-})
-
 --------------------------------------------------
 -- Auto keyboard layout switch helpers
 --------------------------------------------------
+
+local function macro_active()
+  return vim.fn.reg_recording() ~= '' or vim.fn.reg_executing() ~= ''
+end
+
 local function map_insert_with_switch(mode, key, insert_cmd)
   vim.keymap.set(mode, key, function()
+    if macro_active() then
+      -- Если макрос активен — ничего не делаем, пусть Vim работает по умолчанию
+      return
+    end
     vim.api.nvim_feedkeys(insert_cmd, 'n', false)
     vim.fn.system(switch_layout_script)
   end)
@@ -63,9 +47,12 @@ local is_us_layout = function()
 end
 
 vim.keymap.set('i', '<Esc>', function()
+  if macro_active() then
+    return '<Esc>'
+  end
   if not is_us_layout() then
     vim.fn.system(switch_layout_script)
   end
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', false)
-end)
+  return vim.api.nvim_replace_termcodes('<Esc>', true, false, true)
+end, { expr = true })
 --------------------------------------------------
