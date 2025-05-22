@@ -13,7 +13,6 @@ end
 local function map_insert_with_switch(mode, key, insert_cmd)
   vim.keymap.set(mode, key, function()
     if macro_active() then
-      -- Если макрос активен — ничего не делаем, пусть Vim работает по умолчанию
       return
     end
     vim.api.nvim_feedkeys(insert_cmd, 'n', false)
