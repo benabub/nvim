@@ -40,6 +40,8 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<C-PageDown>', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
+vim.keymap.set('n', '<C-PageUp>', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic' })
 
 -- Terminal
 -- vim.keymap.set('n', '<F5>', ':ToggleTerm size=40 dir=~/Desktop direction=float name=desktop<CR>') -- toggle
