@@ -12,12 +12,25 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Disable hot synchronization
+-- Configure diff mode to maintain vertical sync but disable horizontal sync
 vim.api.nvim_create_autocmd('OptionSet', {
   pattern = 'diff',
   callback = function()
-    vim.opt.scrollbind = true
-    vim.opt.cursorbind = true
-    vim.opt.scrollopt = 'ver,jump'
+    vim.opt.scrollbind = true -- Enable window synchronization
+    vim.opt.cursorbind = true -- Synchronize cursor movements
+    vim.opt.scrollopt = 'ver,jump' -- Sync only vertical scrolling and jump movements
+  end,
+})
+
+-- Apply consistent window settings for all diff mode windows
+vim.api.nvim_create_autocmd({ 'OptionSet', 'WinEnter' }, {
+  pattern = '*',
+  callback = function()
+    if vim.wo.diff then -- Check if window is in diff mode
+      vim.wo.number = false -- Disable absolute line numbers
+      vim.wo.relativenumber = false -- Disable relative line numbers
+      vim.wo.foldcolumn = '0' -- Hide fold column
+      -- vim.wo.signcolumn = 'no'  -- Hide sign column (optional)
+    end
   end,
 })
