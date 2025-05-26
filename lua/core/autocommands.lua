@@ -11,3 +11,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+-- Disable hot synchronization
+vim.api.nvim_create_autocmd('OptionSet', {
+  pattern = 'diff',
+  callback = function()
+    vim.opt.scrollbind = true
+    vim.opt.cursorbind = true
+    vim.opt.scrollopt = 'ver,jump'
+  end,
+})
