@@ -1,3 +1,5 @@
+-- TODO: disable highlighting code of discusion
+
 return {
   'CopilotC-Nvim/CopilotChat.nvim',
   opts = {},
