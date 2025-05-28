@@ -183,7 +183,7 @@ end)
 vim.keymap.set('n', '<leader>wm', ':MaximizerToggle<CR>') -- toggle maximize tab
 
 -- zen-mode.nvim
-vim.keymap.set('n', '<leader>wz', ':ZenMode<CR>')
+vim.keymap.set('n', '<leader>wz', ':ZenMode<CR>:wincmd |<CR>')
 
 -- Neotest
 vim.keymap.set('n', '<leader>tn', function()
