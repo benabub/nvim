@@ -29,7 +29,7 @@ return {
     local dapui = require 'dapui'
     return {
       -- Basic debugging keymaps, feel free to change to your liking!
-      -- { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
+      { '<F2>', dap.continue, desc = 'Debug: Start/Continue' },
       { '<F2>', dap.step_into, desc = 'Debug: Step Into' },
       -- { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
       -- { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
@@ -85,6 +85,16 @@ return {
           run_last = '▶▶',
           terminate = '⏹',
           disconnect = '⏏',
+        },
+      },
+      layouts = {
+        {
+          elements = {
+            { id = 'scopes', size = 0.8 },
+            { id = 'console', size = 0.2 },
+          },
+          size = 0.35, -- 35% ширины экрана
+          position = 'left',
         },
       },
     }
