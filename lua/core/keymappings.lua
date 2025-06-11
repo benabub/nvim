@@ -12,6 +12,9 @@ vim.keymap.set('n', '<CR>', 'o<Esc>') -- new underline
 vim.keymap.set('n', '<leader>9', 'i(<Esc>A)<Esc>', { desc = 'Surround to the end' })
 vim.keymap.set('n', '<leader>0', 'i(<Esc>$i)<Esc>', { desc = 'Surround to :' })
 
+-- Select to the end of the line
+vim.keymap.set('n', '<leader>vv', 'v$h', { desc = 'Select to the end of the line' })
+
 -- Mason & Lazy fast
 vim.keymap.set('n', '<leader>l', ':Lazy<CR>') -- toggle git blame
 vim.keymap.set('n', '<leader>m', ':Mason<CR>') -- toggle git blame
