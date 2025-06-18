@@ -34,3 +34,12 @@ vim.api.nvim_create_autocmd({ 'OptionSet', 'WinEnter' }, {
     end
   end,
 })
+
+-- remap <C-L> for copilot-chat to move focus left. Again.
+-- (after copilot-chat pluggin has successfully broke it)
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'copilot-chat',
+  callback = function()
+    vim.keymap.set('n', '<C-L>', '<C-W><C-L>', { noremap = true, silent = true, buffer = true })
+  end,
+})
