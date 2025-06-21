@@ -20,33 +20,33 @@ vim.keymap.del('o', 'gc')
 local operator_rhs = function()
   return require('vim._comment').operator()
 end
-vim.keymap.set({ 'n', 'x' }, 'hh', operator_rhs, { expr = true, desc = 'Toggle comment' })
+vim.keymap.set({ 'n', 'x' }, 'ff', operator_rhs, { expr = true, desc = 'Toggle comment' })
 
 local line_rhs = function()
   return require('vim._comment').operator() .. '_'
 end
-vim.keymap.set('n', 'hl', line_rhs, { expr = true, desc = 'Toggle comment line' })
+vim.keymap.set('n', 'fa', line_rhs, { expr = true, desc = 'Toggle comment line' })
 
 local textobject_rhs = function()
   require('vim._comment').textobject()
 end
-vim.keymap.set({ 'o' }, 'hh', textobject_rhs, { desc = 'Comment textobject' })
+vim.keymap.set({ 'o' }, 'ff', textobject_rhs, { desc = 'Comment textobject' })
 
 -----------------------------------
 -- Custom commenting
 -----------------------------------
 
 -- Toggle comment inner paragraph
-vim.keymap.set('n', 'hj', function()
+vim.keymap.set('n', 'fd', function()
   vim.cmd 'normal Vip'
-  vim.cmd 'normal hh'
+  vim.cmd 'normal ff'
 end, { desc = 'Toggle comment inner paragraph' })
 
 -----------------------------------
 -- Toggle comment code until `# ---` above
 
 -- In normal mode, <leader>a executes the function
-vim.keymap.set('n', 'hk', function()
+vim.keymap.set('n', 'fs', function()
   -- Get the current line number
   local cur = vim.fn.line '.'
   -- Initialize start_line with the current line
@@ -69,7 +69,7 @@ vim.keymap.set('n', 'hk', function()
   -- Visually select the range from start_line to end_line
   vim.cmd('normal! V' .. (end_line - start_line) .. 'j')
   -- Toggle comment on the selected lines
-  vim.cmd 'normal hh'
+  vim.cmd 'normal ff'
   -- Return the cursor to the original line
   vim.fn.cursor(start_line, 1)
   -- Description for help
