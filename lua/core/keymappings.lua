@@ -19,10 +19,45 @@ vim.keymap.set('n', '<leader>z', "<cmd>lua require('nvim-autopairs').toggle()<cr
 vim.keymap.set('n', '<leader>vv', 'v$h', { desc = 'Select to the end of the line' })
 
 -- Toggle comment inner paragraph
-vim.keymap.set('n', '<leader>a', function()
+vim.keymap.set('n', '<leader>p', function()
   vim.cmd 'normal Vip'
   vim.cmd 'normal gc'
 end, { desc = 'Toggle comment inner paragraph' })
+
+-----------------------------------
+-- Toggle comment code until `# ---` above
+
+-- In normal mode, <leader>a executes the function
+vim.keymap.set('n', '<leader>a', function()
+  -- Get the current line number
+  local cur = vim.fn.line '.'
+  -- Initialize start_line with the current line
+  local start_line = cur
+  local end_line = cur
+  -- Search down to the last line or until a line starting with "# --"
+  while cur < vim.fn.line '$' do
+    -- Get the text of the next line
+    local next_line = vim.fn.getline(cur + 1)
+    -- If the next line starts with "# --":
+    if next_line:match '^# %-%-' then
+      end_line = cur - 1
+      break
+    else
+      cur = cur + 1
+    end
+  end
+  -- Move the cursor to the found upper boundary
+  vim.api.nvim_win_set_cursor(0, { start_line, 0 })
+  -- Visually select the range from start_line to end_line
+  vim.cmd('normal! V' .. (end_line - start_line) .. 'j')
+  -- Toggle comment on the selected lines
+  vim.cmd 'normal gc'
+  -- Return the cursor to the original line
+  vim.fn.cursor(start_line, 1)
+  -- Description for help
+end, { desc = 'Toggle comment until # -- above' })
+
+-----------------------------------
 
 -- Mason & Lazy fast
 vim.keymap.set('n', '<leader>l', ':Lazy<CR>') -- toggle git blame
