@@ -12,8 +12,17 @@ vim.keymap.set('n', '<CR>', 'o<Esc>') -- new underline
 vim.keymap.set('n', '<leader>9', 'i(<Esc>A)<Esc>', { desc = 'Surround to the end' })
 vim.keymap.set('n', '<leader>0', 'i(<Esc>$i)<Esc>', { desc = 'Surround to :' })
 
+-- toggle nvim autopairs
+vim.keymap.set('n', '<leader>z', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
+
 -- Select to the end of the line
 vim.keymap.set('n', '<leader>vv', 'v$h', { desc = 'Select to the end of the line' })
+
+-- Toggle comment inner paragraph
+vim.keymap.set('n', '<leader>a', function()
+  vim.cmd 'normal Vip'
+  vim.cmd 'normal gc'
+end, { desc = 'Toggle comment inner paragraph' })
 
 -- Mason & Lazy fast
 vim.keymap.set('n', '<leader>l', ':Lazy<CR>') -- toggle git blame
@@ -104,9 +113,6 @@ vim.keymap.set('n', '<leader>dh', '<cmd>Telescope dap commands<cr>')
 vim.keymap.set('n', '<leader>de', function()
   require('telescope.builtin').diagnostics { default_text = ':E:' }
 end)
-
--- toggle nvim autopairs
-vim.keymap.set('n', '<leader>a', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
 
 -- Harpoon
 local harpoon = require 'harpoon'
