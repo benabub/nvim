@@ -52,7 +52,25 @@ vim.keymap.set('n', 'fs', function()
   -- Initialize start_line with the current line
   local start_line = cur
   local end_line = cur
-  -- Search down to the last line or until a line starting with "# --"
+  local original = cur
+
+  -- Search up to the start_line
+  while cur > 1 do
+    -- Get the text of the previous line
+    local prev_line = vim.fn.getline(cur - 1)
+    -- If the previous line is empty
+    if prev_line == '' then
+      start_line = cur
+      break
+    else
+      cur = cur - 1
+    end
+  end
+
+  -- reset cur to original line for downward search
+  cur = original
+
+  -- Search down to the end_line
   while cur < vim.fn.line '$' do
     -- Get the text of the next line
     local next_line = vim.fn.getline(cur + 1)
@@ -64,6 +82,7 @@ vim.keymap.set('n', 'fs', function()
       cur = cur + 1
     end
   end
+
   -- Move the cursor to the found upper boundary
   vim.api.nvim_win_set_cursor(0, { start_line, 0 })
   -- Visually select the range from start_line to end_line
