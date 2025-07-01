@@ -36,14 +36,18 @@ vim.keymap.set({ 'o' }, 'ff', textobject_rhs, { desc = 'Comment textobject' })
 -- Custom commenting
 -----------------------------------
 
+--
 -- Toggle comment inner paragraph
+--
+
 vim.keymap.set('n', 'fd', function()
   vim.cmd 'normal Vip'
   vim.cmd 'normal ff'
 end, { desc = 'Toggle comment inner paragraph' })
 
------------------------------------
+--
 -- Toggle comment code until `# ---` above
+--
 
 -- In normal mode, <leader>a executes the function
 vim.keymap.set('n', 'fs', function()
@@ -109,6 +113,13 @@ vim.keymap.set('n', '<leader>z', "<cmd>lua require('nvim-autopairs').toggle()<cr
 -- Select to the end of the line
 -----------------------------------
 vim.keymap.set('n', '<leader>vv', 'v$h', { desc = 'Select to the end of the line' })
+
+-----------------------------------
+-- Move cursor in Insert mode
+-----------------------------------
+
+vim.keymap.set('i', '<C-l>', '<Right>', { desc = 'Cursor step right in Insert mode' })
+vim.keymap.set('i', '<C-h>', '<Left>', { desc = 'Cursor step left in Insert mode' })
 
 -----------------------------------
 -- Code run
