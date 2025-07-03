@@ -119,7 +119,10 @@ vim.keymap.set('n', '<leader>vv', 'v$h', { desc = 'Select to the end of the line
 -----------------------------------
 
 vim.keymap.set('i', '<C-l>', '<Right>', { desc = 'Cursor step right in Insert mode' })
+vim.keymap.set('i', '<C-л>', '<Right>', { desc = 'Cursor step right in Insert mode' })
+
 vim.keymap.set('i', '<C-h>', '<Left>', { desc = 'Cursor step left in Insert mode' })
+vim.keymap.set('i', '<C-ь>', '<Left>', { desc = 'Cursor step left in Insert mode' })
 
 -----------------------------------
 -- Code run
