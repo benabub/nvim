@@ -107,7 +107,7 @@ vim.keymap.set('n', '<leader>0', 'i(<Esc>$i)<Esc>', { desc = 'Surround to :' })
 -----------------------------------
 -- toggle nvim autopairs
 -----------------------------------
-vim.keymap.set('n', '<leader>z', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
+vim.keymap.set('n', '<leader>]', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
 
 -----------------------------------
 -- Select to the end of the line
@@ -323,7 +323,7 @@ vim.keymap.set('n', '<leader>wm', ':MaximizerToggle<CR>') -- toggle maximize tab
 -----------------------------------
 -- zen-mode.nvim
 -----------------------------------
-vim.keymap.set('n', '<leader>wz', ':ZenMode<CR>:wincmd |<CR>')
+vim.keymap.set('n', '<leader>z', ':ZenMode<CR>:wincmd |<CR>')
 
 -----------------------------------
 -- Neotest
