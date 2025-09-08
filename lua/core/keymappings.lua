@@ -79,7 +79,7 @@ vim.keymap.set('n', 'fs', function()
     -- Get the text of the next line
     local next_line = vim.fn.getline(cur + 1)
     -- If the next line starts with "# --":
-    if next_line:match '^# %-%-' then
+    if next_line:match '^# %-%-' or next_line:match '^# ==' then
       end_line = cur - 1
       break
     else
