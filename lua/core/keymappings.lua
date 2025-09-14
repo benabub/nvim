@@ -1,11 +1,104 @@
 -----------------------------------
+-- locals
+-----------------------------------
+local telescope = require 'telescope.builtin'
+
+-----------------------------------
 -- General keymaps
 -----------------------------------
-vim.keymap.set('n', '<leader>wq', ':wq<CR>') -- save and quit
-vim.keymap.set('n', '<leader>`', ':q!<CR>') -- quit without saving
-vim.keymap.set('n', '<leader>ww', ':w<CR>') -- save
-vim.keymap.set('n', 'gx', ':!open <c-r><c-a><CR>') -- open URL under cursor
-vim.keymap.set('n', '<CR>', 'o<Esc>') -- new underline
+vim.keymap.set('n', '<leader>wq', ':wq<CR>', { desc = 'Save and quit' })
+vim.keymap.set('n', '<leader>`', ':q!<CR>', { desc = 'Quit without saving' })
+vim.keymap.set('n', '<leader><leader>', ':w<CR>', { desc = 'save' })
+vim.keymap.set('n', 'gx', ':!open <c-r><c-a><CR>', { desc = 'Open URL under cursor' })
+
+-----------------------------------
+-- Autotyping
+-----------------------------------
+vim.keymap.set('n', '<CR>', 'o<Esc>', { desc = 'New underline' })
+
+-----------------------------------
+-- Line surrounding
+-----------------------------------
+vim.keymap.set('n', '<leader>9', 'i(<Esc>A)<Esc>', { desc = 'Surround to the end' })
+vim.keymap.set('n', '<leader>0', 'i(<Esc>$i)<Esc>', { desc = 'Surround to :' })
+
+-----------------------------------
+-- LSP
+-----------------------------------
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('lsp-attach-keymaps', { clear = true }),
+  callback = function(event)
+    local map = function(keys, func, desc, mode)
+      mode = mode or 'n'
+      vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+    end
+
+    -- def
+    map('<leader>ld', telescope.lsp_definitions, 'Goto Definition')
+    -- declaration: where var declarated, but not defined
+    map('<leader>lD', vim.lsp.buf.declaration, 'Goto Declaration')
+    -- interface realization
+    map('<leader>li', telescope.lsp_implementations, 'Goto Implementation')
+
+    -- type
+    map('<leader>lt', telescope.lsp_type_definitions, 'Goto Type Definition')
+
+    -- search in project
+    map('<leader>lr', telescope.lsp_references, 'Search References in file')
+    -- search in current file
+    map('<leader>lv', telescope.lsp_document_symbols, 'Search Vars defs in file')
+
+    -- rename variable
+    map('<leader>lR', vim.lsp.buf.rename, 'Rename var (refactoring)')
+    -- possible refactoring
+    map('<leader>lc', vim.lsp.buf.code_action, 'Code Action')
+
+    -- for LSP inlay hints only (doesn't work, if there is no such configuration)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+      map('<leader>th', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+      end, '[T]oggle Inlay [H]ints')
+    end
+  end,
+})
+
+-----------------------------------
+-- Telescope
+-----------------------------------
+vim.keymap.set('n', '<leader>sh', telescope.help_tags, { desc = 'Search Help' })
+vim.keymap.set('n', '<leader>sk', telescope.keymaps, { desc = 'Search Keymaps' })
+vim.keymap.set('n', '<leader>sf', telescope.find_files, { desc = 'Search Files' })
+vim.keymap.set('n', '<leader>ss', telescope.builtin, { desc = 'Search Select Telescope' })
+vim.keymap.set('n', '<leader>sw', telescope.grep_string, { desc = 'Search current Word' })
+vim.keymap.set('n', '<leader>sd', telescope.diagnostics, { desc = 'Search Diagnostics' })
+vim.keymap.set('n', '<leader>sr', telescope.resume, { desc = 'Search Resume' })
+vim.keymap.set('n', '<leader>s.', telescope.oldfiles, { desc = 'Search Recent Files ("." for repeat)' })
+vim.keymap.set('n', '<leader>sb', telescope.buffers, { desc = 'Find existing buffers' })
+vim.keymap.set('n', '<leader>sg', telescope.live_grep, { desc = 'Search by Grep' })
+
+-- Slightly advanced example of overriding default behavior and theme
+vim.keymap.set('n', '<leader>/', function()
+  -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+  telescope.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, { desc = '[/] Fuzzily search in current buffer' })
+
+-- It's also possible to pass additional configuration options.
+--  See `:help telescope.builtin.live_grep()` for information about particular keys
+vim.keymap.set('n', '<leader>s/', function()
+  telescope.live_grep {
+    grep_open_files = true,
+    prompt_title = 'Live Grep in Open Files',
+  }
+end, { desc = '[S]earch [/] in Open Files' })
+
+-- Shortcut for searching your Neovim configuration files
+vim.keymap.set('n', '<leader>sn', function()
+  telescope.find_files { cwd = vim.fn.stdpath 'config' }
+end, { desc = '[S]earch [N]eovim files' })
 
 -----------------------------------
 -- Default commenting remapping
@@ -99,12 +192,6 @@ vim.keymap.set('n', 'fs', function()
 end, { desc = 'Toggle comment until # -- above' })
 
 -----------------------------------
--- Line surrounding
------------------------------------
-vim.keymap.set('n', '<leader>9', 'i(<Esc>A)<Esc>', { desc = 'Surround to the end' })
-vim.keymap.set('n', '<leader>0', 'i(<Esc>$i)<Esc>', { desc = 'Surround to :' })
-
------------------------------------
 -- toggle nvim autopairs
 -----------------------------------
 vim.keymap.set('n', '<leader>]', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
@@ -132,8 +219,8 @@ vim.keymap.set('n', '<leader>rr', ':!python %<CR>')
 -----------------------------------
 -- Mason & Lazy fast
 -----------------------------------
-vim.keymap.set('n', '<leader>l', ':Lazy<CR>') -- toggle git blame
-vim.keymap.set('n', '<leader>m', ':Mason<CR>') -- toggle git blame
+vim.keymap.set('n', '<leader>L', ':Lazy<CR>') -- toggle git blame
+vim.keymap.set('n', '<leader>M', ':Mason<CR>') -- toggle git blame
 
 -----------------------------------
 -- Bookmarks
@@ -254,31 +341,31 @@ end)
 
 vim.keymap.set('n', '<leader>1', function()
   harpoon:list():select(1)
-end)
+end, { desc = 'Harpoon: buffer 1' })
 vim.keymap.set('n', '<leader>2', function()
   harpoon:list():select(2)
-end)
+end, { desc = 'Harpoon: buffer 2' })
 vim.keymap.set('n', '<leader>3', function()
   harpoon:list():select(3)
-end)
+end, { desc = 'Harpoon: buffer 3' })
 vim.keymap.set('n', '<leader>4', function()
   harpoon:list():select(4)
-end)
+end, { desc = 'Harpoon: buffer 4' })
 vim.keymap.set('n', '<leader>5', function()
   harpoon:list():select(5)
-end)
+end, { desc = 'Harpoon: buffer 5' })
 vim.keymap.set('n', '<leader>6', function()
   harpoon:list():select(6)
-end)
+end, { desc = 'Harpoon: buffer 6' })
 vim.keymap.set('n', '<leader>7', function()
   harpoon:list():select(7)
-end)
+end, { desc = 'Harpoon: buffer 7' })
 vim.keymap.set('n', '<leader>8', function()
   harpoon:list():select(8)
-end)
+end, { desc = 'Harpoon: buffer 8' })
 vim.keymap.set('n', '<leader>9', function()
   harpoon:list():select(9)
-end)
+end, { desc = 'Harpoon: buffer 9' })
 -- -- replace
 -- vim.keymap.set('n', '<leader>H1', function()
 --   harpoon:list():replace_at(1)
