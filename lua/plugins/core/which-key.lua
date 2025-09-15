@@ -48,12 +48,20 @@ return {
         { '<leader>b', group = 'Breakpoints' },
         { '<leader>d', group = 'Debug' },
         { '<leader>e', group = 'Tree' },
-        --
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-        { '<leader>r', group = '[R]ename' },
-        { '<leader>w', group = '[W]orkspace' },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>w', group = 'File: Write | Close | Format' },
+        { '<leader>r', group = 'Run Code' },
+        { '<leader>o', group = 'Other Plugins' },
+        { '<leader>m', group = 'Manipulations' },
+        { '<leader>c', group = 'Copilot' },
+        { '<leader>a', group = 'AutoType' },
+        { '<leader>t', group = 'Testing' },
+        { '<leader>x', group = 'Trouble' },
+        { '<leader>h', group = 'Harpoon' },
+        { '<leader>v', group = 'Visual Selection' },
+        -- free:
+        -- q y u i p
+        -- a f g j k
+        -- z x n
       },
     },
   },

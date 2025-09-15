@@ -8,10 +8,15 @@ local dapui = require 'dapui'
 -----------------------------------
 -- General keymaps
 -----------------------------------
+vim.keymap.set('n', 'gx', ':!open <c-r><c-a><CR>', { desc = 'Open URL under cursor' })
+
+-----------------------------------
+-- File: Write | Close | Format
+-----------------------------------
 vim.keymap.set('n', '<leader>wq', ':wq<CR>', { desc = 'Save and quit' })
 vim.keymap.set('n', '<leader>`', ':q!<CR>', { desc = 'Quit without saving' })
-vim.keymap.set('n', '<leader><leader>', ':w<CR>', { desc = 'save' })
-vim.keymap.set('n', 'gx', ':!open <c-r><c-a><CR>', { desc = 'Open URL under cursor' })
+vim.keymap.set('n', '<leader><leader>', ':w<CR>', { desc = 'Save File' })
+vim.keymap.set('n', '<leader>ww', ':w<CR>', { desc = 'Save File' })
 
 -----------------------------------
 -- Autotyping
@@ -19,10 +24,11 @@ vim.keymap.set('n', 'gx', ':!open <c-r><c-a><CR>', { desc = 'Open URL under curs
 vim.keymap.set('n', '<CR>', 'o<Esc>', { desc = 'New underline' })
 
 -----------------------------------
--- Line surrounding
+-- Manipulations
 -----------------------------------
-vim.keymap.set('n', '<leader>9', 'i(<Esc>A)<Esc>', { desc = 'Surround to the end' })
-vim.keymap.set('n', '<leader>0', 'i(<Esc>$i)<Esc>', { desc = 'Surround to :' })
+-- Line surrounding
+vim.keymap.set('n', '<leader>me', 'i(<Esc>A)<Esc>', { desc = 'Surround with () to the end' })
+vim.keymap.set('n', '<leader>mc', 'i(<Esc>$i)<Esc>', { desc = 'Surround with () to < : >' })
 
 -----------------------------------
 -- LSP
@@ -73,12 +79,14 @@ vim.keymap.set('n', '<leader>sk', telescope.keymaps, { desc = 'Search Keymaps' }
 vim.keymap.set('n', '<leader>sf', telescope.find_files, { desc = 'Search Files' })
 vim.keymap.set('n', '<leader>ss', telescope.builtin, { desc = 'Search Telescope Function' })
 vim.keymap.set('n', '<leader>sw', telescope.grep_string, { desc = 'Search current Word' })
-vim.keymap.set('n', '<leader>sd', telescope.diagnostics, { desc = 'Search Diagnostics' })
-vim.keymap.set('n', '<leader>sD', vim.diagnostic.setloclist, { desc = 'Open diagnostic Quickfix list' })
 vim.keymap.set('n', '<leader>sr', telescope.resume, { desc = 'Search Resume' })
 vim.keymap.set('n', '<leader>s.', telescope.oldfiles, { desc = 'Search Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader>sb', telescope.buffers, { desc = 'Find existing buffers' })
 vim.keymap.set('n', '<leader>sg', telescope.live_grep, { desc = 'Search by Grep in project' })
+
+vim.keymap.set('n', '<leader>sd', function()
+  telescope.diagnostics { path_display = { 'hidden' } }
+end, { desc = 'Search Diagnostics' })
 
 -- Slightly advanced example of overriding default behavior and theme
 vim.keymap.set('n', '<leader>/', function()
@@ -102,6 +110,20 @@ end, { desc = '[S]earch [/] in Open Files' })
 vim.keymap.set('n', '<leader>sn', function()
   telescope.find_files { cwd = vim.fn.stdpath 'config' }
 end, { desc = '[S]earch [N]eovim files' })
+
+-----------------------------------
+-- Diagnostics GoTo Commands
+-----------------------------------
+vim.keymap.set('n', '<C-PageDown>', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
+vim.keymap.set('n', '<C-PageUp>', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic' })
+
+-----------------------------------
+-- Trouble
+-----------------------------------
+vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble: Diagnostics' })
+vim.keymap.set('n', '<leader>xs', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Trouble: Variables' })
+vim.keymap.set('n', '<leader>xl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Trouble: Full Symbol Context  ' })
+-- vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { desc = 'Trouble: Quickfix List' })
 
 -----------------------------------
 -- Default commenting remapping
@@ -195,12 +217,7 @@ vim.keymap.set('n', 'fs', function()
 end, { desc = 'Toggle comment until # -- above' })
 
 -----------------------------------
--- toggle nvim autopairs
------------------------------------
-vim.keymap.set('n', '<leader>]', "<cmd>lua require('nvim-autopairs').toggle()<cr>")
-
------------------------------------
--- Select to the end of the line
+-- Visual Selection
 -----------------------------------
 vim.keymap.set('n', '<leader>vv', 'v$h', { desc = 'Select to the end of the line' })
 
@@ -217,7 +234,8 @@ vim.keymap.set('i', '<C-ь>', '<Left>', { desc = 'Cursor step left in Insert mod
 -----------------------------------
 -- Code run
 -----------------------------------
-vim.keymap.set('n', '<leader>rr', ':!python %<CR>')
+vim.keymap.set('n', '<leader>rr', ':!python %<CR>', { desc = 'Run Current Python file' })
+vim.keymap.set('n', '<Leader>rc', '<cmd>Run<cr>', { noremap = true, silent = true, desc = 'Run with CodeRunner + Console stays' })
 
 -----------------------------------
 -- Mason & Lazy fast
@@ -232,6 +250,10 @@ vim.keymap.set({ 'n', 'v' }, 'mm', '<cmd>BookmarksMark<cr>', { desc = 'Mark curr
 vim.keymap.set({ 'n', 'v' }, 'mo', '<cmd>BookmarksGoto<cr>', { desc = 'Go to bookmark at current active BookmarkList' })
 vim.keymap.set({ 'n', 'v' }, 'm1', '<cmd>BookmarksGotoPrev<cr>', { desc = 'Go to next bookmark in line number order' })
 vim.keymap.set({ 'n', 'v' }, 'm2', '<cmd>BookmarksGotoNext<cr>', { desc = 'Go to previous bookmark in line number order' })
+
+vim.keymap.set({ 'n', 'v' }, 'md', function()
+  require('bookmarks.commands').delete_mark_of_current_file()
+end, { desc = 'Clear All Bookmark in File' })
 
 -----------------------------------
 -- Copilot
@@ -280,18 +302,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -----------------------------------
 vim.keymap.set('n', '<leader>ee', ':NvimTreeToggle<CR>') -- toggle file explorer
 vim.keymap.set('n', '<leader>er', ':NvimTreeFocus<CR>') -- toggle focus to file explorer
-vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFile<CR>') -- find file in file explorer
-
------------------------------------
--- Git-blame
------------------------------------
-vim.keymap.set('n', '<leader>gb', ':GitBlameToggle<CR>') -- toggle git blame
-
------------------------------------
--- Diagnostics GoTo Commands
------------------------------------
-vim.keymap.set('n', '<C-PageDown>', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
-vim.keymap.set('n', '<C-PageUp>', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic' })
 
 -----------------------------------
 -- Breakpoints
@@ -336,10 +346,10 @@ harpoon:setup()
 
 vim.keymap.set('n', '<leader>ha', function()
   harpoon:list():add()
-end)
+end, { desc = 'Harpoon add' })
 vim.keymap.set('n', '<leader>hh', function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
-end)
+end, { desc = 'Harpoon list' })
 
 vim.keymap.set('n', '<leader>1', function()
   harpoon:list():select(1)
@@ -370,14 +380,9 @@ vim.keymap.set('n', '<leader>9', function()
 end, { desc = 'Harpoon: buffer 9' })
 
 -----------------------------------
--- Vim-maximizer
------------------------------------
-vim.keymap.set('n', '<leader>wm', ':MaximizerToggle<CR>') -- toggle maximize tab
-
------------------------------------
 -- zen-mode.nvim
 -----------------------------------
-vim.keymap.set('n', '<leader>z', ':ZenMode<CR>:wincmd |<CR>')
+vim.keymap.set('n', '<leader>z', ':ZenMode<CR>:wincmd |<CR>', { desc = 'Zen Mode' })
 
 -----------------------------------
 -- Neotest
@@ -401,6 +406,13 @@ end, { desc = 'summary_toggle' })
 vim.keymap.set('n', '<leader>tw', function()
   require('neotest').watch.watch()
 end, { desc = 'watch current test for changes' })
+
+-----------------------------------
+-- Other plugins
+-----------------------------------
+vim.keymap.set('n', '<leader>ou', vim.cmd.UndotreeToggle, { desc = 'UndoTree' })
+vim.keymap.set('n', '<leader>oa', "<cmd>lua require('nvim-autopairs').toggle()<cr>", { desc = 'Toggle Autopairs' })
+vim.keymap.set('n', '<leader>og', ':GitBlameToggle<CR>', { desc = 'Toggle Git Blame' })
 
 -----------------------------------
 -- Templates for this file
