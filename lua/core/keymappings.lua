@@ -2,6 +2,8 @@
 -- locals
 -----------------------------------
 local telescope = require 'telescope.builtin'
+local dap = require 'dap'
+local dapui = require 'dapui'
 
 -----------------------------------
 -- General keymaps
@@ -44,9 +46,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('<leader>lt', telescope.lsp_type_definitions, 'Goto Type Definition')
 
     -- search in project
-    map('<leader>lr', telescope.lsp_references, 'Search References in file')
+    map('<leader>lr', telescope.lsp_references, 'Show References in file')
     -- search in current file
-    map('<leader>lv', telescope.lsp_document_symbols, 'Search Vars defs in file')
+    map('<leader>sv', telescope.lsp_document_symbols, 'Search Vars defs in file')
 
     -- rename variable
     map('<leader>lR', vim.lsp.buf.rename, 'Rename var (refactoring)')
@@ -69,13 +71,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.keymap.set('n', '<leader>sh', telescope.help_tags, { desc = 'Search Help' })
 vim.keymap.set('n', '<leader>sk', telescope.keymaps, { desc = 'Search Keymaps' })
 vim.keymap.set('n', '<leader>sf', telescope.find_files, { desc = 'Search Files' })
-vim.keymap.set('n', '<leader>ss', telescope.builtin, { desc = 'Search Select Telescope' })
+vim.keymap.set('n', '<leader>ss', telescope.builtin, { desc = 'Search Telescope Function' })
 vim.keymap.set('n', '<leader>sw', telescope.grep_string, { desc = 'Search current Word' })
 vim.keymap.set('n', '<leader>sd', telescope.diagnostics, { desc = 'Search Diagnostics' })
+vim.keymap.set('n', '<leader>sD', vim.diagnostic.setloclist, { desc = 'Open diagnostic Quickfix list' })
 vim.keymap.set('n', '<leader>sr', telescope.resume, { desc = 'Search Resume' })
 vim.keymap.set('n', '<leader>s.', telescope.oldfiles, { desc = 'Search Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader>sb', telescope.buffers, { desc = 'Find existing buffers' })
-vim.keymap.set('n', '<leader>sg', telescope.live_grep, { desc = 'Search by Grep' })
+vim.keymap.set('n', '<leader>sg', telescope.live_grep, { desc = 'Search by Grep in project' })
 
 -- Slightly advanced example of overriding default behavior and theme
 vim.keymap.set('n', '<leader>/', function()
@@ -251,13 +254,6 @@ vim.keymap.set('n', '<leader>ce', ':Copilot enable<CR>', { desc = 'Copilot enabl
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -----------------------------------
--- Diagnostic keymaps
------------------------------------
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<C-PageDown>', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
-vim.keymap.set('n', '<C-PageUp>', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic' })
-
------------------------------------
 -- Terminal
 -----------------------------------
 -- vim.keymap.set('n', '<F5>', ':ToggleTerm size=40 dir=~/Desktop direction=float name=desktop<CR>') -- toggle
@@ -292,39 +288,45 @@ vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFile<CR>') -- find file in file 
 vim.keymap.set('n', '<leader>gb', ':GitBlameToggle<CR>') -- toggle git blame
 
 -----------------------------------
+-- Diagnostics GoTo Commands
+-----------------------------------
+vim.keymap.set('n', '<C-PageDown>', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
+vim.keymap.set('n', '<C-PageUp>', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic' })
+
+-----------------------------------
+-- Breakpoints
+-----------------------------------
+-- vim.keymap.set('n', '<leader>bb', "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
+vim.keymap.set('n', '<leader>bb', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+vim.keymap.set('n', '<leader>br', dap.clear_breakpoints, { desc = 'Debug: Clear All Breakpoints' })
+
+vim.keymap.set('n', '<leader>bB', function()
+  dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+end, { desc = 'Debug: Set Named Breakpoint' })
+
+-----------------------------------
 -- Debugging
 -----------------------------------
-vim.keymap.set('n', '<leader>bb', "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
-vim.keymap.set('n', '<leader>bc', "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
-vim.keymap.set('n', '<leader>bl', "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")
-vim.keymap.set('n', '<leader>br', "<cmd>lua require'dap'.clear_breakpoints()<cr>")
-vim.keymap.set('n', '<leader>ba', '<cmd>Telescope dap list_breakpoints<cr>')
-vim.keymap.set('n', '<leader>dc', "<cmd>lua require'dap'.continue()<cr>")
-vim.keymap.set('n', '<leader>dj', "<cmd>lua require'dap'.step_over()<cr>")
-vim.keymap.set('n', '<leader>dk', "<cmd>lua require'dap'.step_into()<cr>")
-vim.keymap.set('n', '<leader>do', "<cmd>lua require'dap'.step_out()<cr>")
-vim.keymap.set('n', '<A-Esc>', function()
-  require('dap').disconnect()
-  require('dapui').close()
-end)
+vim.keymap.set('n', '<leader>dd', dap.continue, { desc = 'Debug: Start/Continue' })
+vim.keymap.set('n', '<leader>di', dap.step_into, { desc = 'Debug: Step Into Function' })
+vim.keymap.set('n', '<leader>do', dap.step_out, { desc = 'Debug: Step Out Function' })
+vim.keymap.set('n', '<leader>dj', dap.step_over, { desc = 'Debug: Jump Over Function' })
+
 vim.keymap.set('n', '<leader>dt', function()
-  require('dap').terminate()
-  require('dapui').close()
-end)
-vim.keymap.set('n', '<leader>dr', "<cmd>lua require'dap'.repl.toggle()<cr>")
-vim.keymap.set('n', '<leader>dl', "<cmd>lua require'dap'.run_last()<cr>")
-vim.keymap.set('n', '<leader>di', function()
+  dap.terminate()
+  dapui.close()
+end, { desc = 'Debug: Terminate' })
+
+vim.keymap.set('n', '<leader>dc', dap.repl.toggle, { desc = 'Debug: toggle console' })
+
+vim.keymap.set('n', '<leader>dv', function()
   require('dap.ui.widgets').hover()
-end)
+end, { desc = 'Debug: Show Value of Variable under cursor' })
+
 vim.keymap.set('n', '<leader>d?', function()
   local widgets = require 'dap.ui.widgets'
   widgets.centered_float(widgets.scopes)
-end)
-vim.keymap.set('n', '<leader>df', '<cmd>Telescope dap frames<cr>')
-vim.keymap.set('n', '<leader>dh', '<cmd>Telescope dap commands<cr>')
-vim.keymap.set('n', '<leader>de', function()
-  require('telescope.builtin').diagnostics { default_text = ':E:' }
-end)
+end, { desc = 'Debug: Show All Variables of Scope' })
 
 -----------------------------------
 -- Harpoon
@@ -366,41 +368,6 @@ end, { desc = 'Harpoon: buffer 8' })
 vim.keymap.set('n', '<leader>9', function()
   harpoon:list():select(9)
 end, { desc = 'Harpoon: buffer 9' })
--- -- replace
--- vim.keymap.set('n', '<leader>H1', function()
---   harpoon:list():replace_at(1)
--- end)
--- vim.keymap.set('n', '<leader>H2', function()
---   harpoon:list():replace_at(2)
--- end)
--- vim.keymap.set('n', '<leader>H3', function()
---   harpoon:list():replace_at(3)
--- end)
--- vim.keymap.set('n', '<leader>H4', function()
---   harpoon:list():replace_at(4)
--- end)
--- vim.keymap.set('n', '<leader>H5', function()
---   harpoon:list():replace_at(5)
--- end)
--- vim.keymap.set('n', '<leader>H6', function()
---   harpoon:list():replace_at(6)
--- end)
--- vim.keymap.set('n', '<leader>H7', function()
---   harpoon:list():replace_at(7)
--- end)
--- vim.keymap.set('n', '<leader>H8', function()
---   harpoon:list():replace_at(8)
--- end)
--- vim.keymap.set('n', '<leader>H9', function()
---   harpoon:list():replace_at(9)
--- end)
--- -- toggle previous & next buffers stored within Harpoon list
--- vim.keymap.set('n', '<leader>h.', function()
---   harpoon:list():prev()
--- end)
--- vim.keymap.set('n', '<leader>h/', function()
---   harpoon:list():next()
--- end)
 
 -----------------------------------
 -- Vim-maximizer
