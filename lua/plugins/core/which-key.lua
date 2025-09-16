@@ -59,12 +59,8 @@ return {
         { '<leader>v', group = 'Visual Selection' },
         { '<leader>a', group = 'AutoType' },
         { '<leader>ac', group = 'Code Blocks' },
-        { '<leader>p', group = 'Code Patterns' },
-        { '<leader>pp', group = 'Python' },
-        { '<leader>pb', group = 'Bash' },
-        { '<leader>pl', group = 'Lua' },
         -- free:
-        -- q y u i
+        -- q y u i p
         -- f g j k
         -- z x n
       },

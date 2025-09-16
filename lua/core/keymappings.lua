@@ -30,6 +30,8 @@ vim.keymap.set('n', '<CR>', 'o<Esc>', { desc = 'New underline' })
 vim.keymap.set('n', '<leader>me', 'i(<Esc>A)<Esc>', { desc = 'Surround with () to the end' })
 vim.keymap.set('n', '<leader>mc', 'i(<Esc>$i)<Esc>', { desc = 'Surround with () to < : >' })
 
+vim.keymap.set('n', '<leader>mp', 'Iprint(<Esc>$A)<Esc>', { desc = 'Move Line Into < print(*) >' })
+
 -----------------------------------
 -- LSP
 -----------------------------------

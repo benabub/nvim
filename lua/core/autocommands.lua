@@ -43,3 +43,14 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<C-L>', '<C-W><C-L>', { noremap = true, silent = true, buffer = true })
   end,
 })
+
+-- -- close start empty buffer
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--   callback = function()
+--     vim.defer_fn(function()
+--       if vim.fn.bufname '%' == '' and vim.fn.bufnr '$' == 1 then
+--         vim.cmd 'bd'
+--       end
+--     end, 10)
+--   end,
+-- })
