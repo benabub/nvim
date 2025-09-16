@@ -53,14 +53,19 @@ return {
         { '<leader>o', group = 'Other Plugins' },
         { '<leader>m', group = 'Manipulations' },
         { '<leader>c', group = 'Copilot' },
-        { '<leader>a', group = 'AutoType' },
         { '<leader>t', group = 'Testing' },
         { '<leader>x', group = 'Trouble' },
         { '<leader>h', group = 'Harpoon' },
         { '<leader>v', group = 'Visual Selection' },
+        { '<leader>a', group = 'AutoType' },
+        { '<leader>ac', group = 'Code Blocks' },
+        { '<leader>p', group = 'Code Patterns' },
+        { '<leader>pp', group = 'Python' },
+        { '<leader>pb', group = 'Bash' },
+        { '<leader>pl', group = 'Lua' },
         -- free:
-        -- q y u i p
-        -- a f g j k
+        -- q y u i
+        -- f g j k
         -- z x n
       },
     },

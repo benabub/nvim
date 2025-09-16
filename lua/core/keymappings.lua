@@ -6,9 +6,9 @@ local dap = require 'dap'
 local dapui = require 'dapui'
 
 -----------------------------------
--- General keymaps
+-- URL
 -----------------------------------
-vim.keymap.set('n', 'gx', ':!open <c-r><c-a><CR>', { desc = 'Open URL under cursor' })
+vim.keymap.set('n', 'gx', '<plug>(openbrowser-smart-search)', { desc = 'Open URL under cursor' })
 
 -----------------------------------
 -- File: Write | Close | Format
@@ -120,9 +120,9 @@ vim.keymap.set('n', '<C-PageUp>', vim.diagnostic.goto_prev, { desc = 'Go to prev
 -----------------------------------
 -- Trouble
 -----------------------------------
-vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Trouble: Diagnostics' })
-vim.keymap.set('n', '<leader>xs', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Trouble: Variables' })
-vim.keymap.set('n', '<leader>xl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Trouble: Full Symbol Context  ' })
+vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle focus=true<cr>', { desc = 'Trouble: Diagnostics' })
+vim.keymap.set('n', '<leader>xv', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Trouble: Variables' })
+vim.keymap.set('n', '<leader>xc', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Trouble: Full Symbol Context  ' })
 -- vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { desc = 'Trouble: Quickfix List' })
 
 -----------------------------------
@@ -413,6 +413,29 @@ end, { desc = 'watch current test for changes' })
 vim.keymap.set('n', '<leader>ou', vim.cmd.UndotreeToggle, { desc = 'UndoTree' })
 vim.keymap.set('n', '<leader>oa', "<cmd>lua require('nvim-autopairs').toggle()<cr>", { desc = 'Toggle Autopairs' })
 vim.keymap.set('n', '<leader>og', ':GitBlameToggle<CR>', { desc = 'Toggle Git Blame' })
+
+-----------------------------------
+-- Barbar
+-----------------------------------
+
+-----------------------------------
+-- AutoTyping
+-----------------------------------
+-- Code Blocks
+vim.keymap.set('n', '<leader>acb', 'i```bash<cr><cr>```<cr><cr><esc>', { desc = 'Code Block: bash' })
+vim.keymap.set('n', '<leader>acp', 'i```python<cr><cr>```<cr><cr><esc>', { desc = 'Code Block: python' })
+vim.keymap.set('n', '<leader>acl', 'i```lua<cr><cr>```<cr><cr><esc>', { desc = 'Code Block: lua' })
+
+-- Special
+vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { desc = '> Sign' })
+
+-- Callouts
+vim.keymap.set('n', '<leader>aw', 'i>[!warning] ', { desc = 'Warning' })
+vim.keymap.set('n', '<leader>at', 'i>[!tip] ', { desc = 'Tip' })
+vim.keymap.set('n', '<leader>ad', 'i>[!danger] ', { desc = 'Danger' })
+vim.keymap.set('n', '<leader>ae', 'i>[!example] ', { desc = 'Example' })
+vim.keymap.set('n', '<leader>ab', 'i>[!bug] ', { desc = 'Bug' })
+vim.keymap.set('n', '<leader>ac', 'i>[!caution] ', { desc = 'Caution' })
 
 -----------------------------------
 -- Templates for this file
