@@ -44,13 +44,47 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- -- close start empty buffer
--- vim.api.nvim_create_autocmd('VimEnter', {
---   callback = function()
---     vim.defer_fn(function()
---       if vim.fn.bufname '%' == '' and vim.fn.bufnr '$' == 1 then
---         vim.cmd 'bd'
---       end
---     end, 10)
---   end,
--- })
+--------------------------------------------------------------------
+-- Tabs (Buffers)
+--------------------------------------------------------------------
+
+-- nvim start empty buffer handler
+vim.api.nvim_create_autocmd('VimEnter', { -- Автокоманда при ЗАПУСКЕ NeoVim
+  once = true, -- Выполнить ТОЛЬКО ОДИН РАЗ при старте
+  callback = function()
+    -- Получаем информацию о текущем буфере
+    local bufname = vim.fn.bufname() -- Имя буфера (пустое если нет файла)
+    local line_count = vim.fn.line '$' -- Количество строк в буфере
+    local first_line = vim.fn.getline(1) -- Содержимое первой строки
+    -- Проверяем что буфер ПУСТОЙ: нет имени, одна строка и строка пустая
+    if bufname == '' and line_count == 1 and first_line == '' then
+      -- Закрываем пустой буфер
+      vim.cmd 'BufferClose!'
+    end
+  end,
+})
+
+-- close nvim after last buffer was closed
+vim.api.nvim_create_autocmd('BufDelete', { -- Автокоманда на событие УДАЛЕНИЯ БУФЕРА
+  pattern = '*', -- Срабатывает для ЛЮБОГО типа буфера
+  callback = function()
+    -- Откладываем выполнение на 10мс чтобы список буферов успел обновиться
+    vim.defer_fn(function()
+      -- Получаем список ВСЕХ буферов, которые отображаются в :ls
+      local buffers = vim.fn.getbufinfo { buflisted = 1 }
+      -- Проверяем: если остался РОВНО ОДИН буфер
+      if #buffers == 1 then
+        local buf = buffers[1] -- Берем первый (и единственный) буфер из списка
+        -- Проверяем что буфер ПУСТОЙ: нет имени и всего одна строка
+        if buf.name == '' and buf.linecount == 1 then
+          -- Читаем первую строку буфера чтобы убедиться что она ПУСТАЯ
+          local first_line = vim.api.nvim_buf_get_lines(buf.bufnr, 0, 1, false)[1]
+          if first_line == '' then
+            -- Если все условия выполнены - ВЫХОДИМ из NeoVim
+            vim.cmd 'q'
+          end
+        end
+      end
+    end, 10) -- Задержка 10 миллисекунд
+  end,
+})

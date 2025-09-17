@@ -4,33 +4,48 @@
 local telescope = require 'telescope.builtin'
 local dap = require 'dap'
 local dapui = require 'dapui'
+local harpoon = require 'harpoon'
+harpoon:setup()
 
 -----------------------------------
 -- URL
 -----------------------------------
-vim.keymap.set('n', 'gx', '<plug>(openbrowser-smart-search)', { desc = 'Open URL under cursor' })
+vim.keymap.set('n', 'gx', '<plug>(openbrowser-smart-search)', { noremap = true, silent = true, desc = 'Open URL under cursor' })
 
------------------------------------
--- File: Write | Close | Format
------------------------------------
-vim.keymap.set('n', '<leader>wq', ':wq<CR>', { desc = 'Save and quit' })
-vim.keymap.set('n', '<leader>`', ':q!<CR>', { desc = 'Quit without saving' })
-vim.keymap.set('n', '<leader><leader>', ':w<CR>', { desc = 'Save File' })
-vim.keymap.set('n', '<leader>ww', ':w<CR>', { desc = 'Save File' })
+-----------------------------------------------------------
+-- Buffers (Tabs): Write | Close | Format (+ Barbar plugin)
+-----------------------------------------------------------
+-- Close
+vim.keymap.set('n', '<leader>wq', ':w<CR>:bd<CR>', { noremap = true, silent = true, desc = 'Save and Close Buffer' })
+vim.keymap.set('n', '<leader>`', ':silent! bd!<CR>', { noremap = true, silent = true, desc = 'Close without Saving' })
+
+-- Save
+vim.keymap.set('n', '<leader><leader>', ':w<CR>', { noremap = true, silent = true, desc = 'Save Buffer' })
+vim.keymap.set('n', '<leader>ww', ':w<CR>', { noremap = true, silent = true, desc = 'Save Buffer' })
+
+-- Tabs
+vim.keymap.set('n', '<S-h>', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true, desc = 'Previous Buffer' })
+vim.keymap.set('n', '<S-l>', '<Cmd>BufferNext<CR>', { noremap = true, silent = true, desc = 'Next Buffer' })
+-- Generate map for buffers 1-9 with loop
+for i = 1, 9 do
+  vim.keymap.set('n', '<A-' .. i .. '>', function()
+    vim.cmd('BufferGoto ' .. i)
+  end, { noremap = true, silent = true, desc = 'Tabs: buffer ' .. i })
+end
 
 -----------------------------------
 -- Autotyping
 -----------------------------------
-vim.keymap.set('n', '<CR>', 'o<Esc>', { desc = 'New underline' })
+vim.keymap.set('n', '<CR>', 'o<Esc>', { noremap = true, silent = true, desc = 'New underline' })
 
 -----------------------------------
 -- Manipulations
 -----------------------------------
 -- Line surrounding
-vim.keymap.set('n', '<leader>me', 'i(<Esc>A)<Esc>', { desc = 'Surround with () to the end' })
-vim.keymap.set('n', '<leader>mc', 'i(<Esc>$i)<Esc>', { desc = 'Surround with () to < : >' })
+vim.keymap.set('n', '<leader>me', 'i(<Esc>A)<Esc>', { noremap = true, silent = true, desc = 'Surround with () to the end' })
+vim.keymap.set('n', '<leader>mc', 'i(<Esc>$i)<Esc>', { noremap = true, silent = true, desc = 'Surround with () to < : >' })
 
-vim.keymap.set('n', '<leader>mp', 'Iprint(<Esc>$A)<Esc>', { desc = 'Move Line Into < print(*) >' })
+vim.keymap.set('n', '<leader>mp', 'Iprint(<Esc>$A)<Esc>', { noremap = true, silent = true, desc = 'Move Line Into < print(*) >' })
 
 -----------------------------------
 -- LSP
@@ -76,19 +91,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -----------------------------------
 -- Telescope
 -----------------------------------
-vim.keymap.set('n', '<leader>sh', telescope.help_tags, { desc = 'Search Help' })
-vim.keymap.set('n', '<leader>sk', telescope.keymaps, { desc = 'Search Keymaps' })
-vim.keymap.set('n', '<leader>sf', telescope.find_files, { desc = 'Search Files' })
-vim.keymap.set('n', '<leader>ss', telescope.builtin, { desc = 'Search Telescope Function' })
-vim.keymap.set('n', '<leader>sw', telescope.grep_string, { desc = 'Search current Word' })
-vim.keymap.set('n', '<leader>sr', telescope.resume, { desc = 'Search Resume' })
-vim.keymap.set('n', '<leader>s.', telescope.oldfiles, { desc = 'Search Recent Files ("." for repeat)' })
-vim.keymap.set('n', '<leader>sb', telescope.buffers, { desc = 'Find existing buffers' })
-vim.keymap.set('n', '<leader>sg', telescope.live_grep, { desc = 'Search by Grep in project' })
+vim.keymap.set('n', '<leader>sh', telescope.help_tags, { noremap = true, silent = true, desc = 'Search Help' })
+vim.keymap.set('n', '<leader>sk', telescope.keymaps, { noremap = true, silent = true, desc = 'Search Keymaps' })
+vim.keymap.set('n', '<leader>sf', telescope.find_files, { noremap = true, silent = true, desc = 'Search Files' })
+vim.keymap.set('n', '<leader>ss', telescope.builtin, { noremap = true, silent = true, desc = 'Search Telescope Function' })
+vim.keymap.set('n', '<leader>sw', telescope.grep_string, { noremap = true, silent = true, desc = 'Search current Word' })
+vim.keymap.set('n', '<leader>sr', telescope.resume, { noremap = true, silent = true, desc = 'Search Resume' })
+vim.keymap.set('n', '<leader>s.', telescope.oldfiles, { noremap = true, silent = true, desc = 'Search Recent Files ("." for repeat)' })
+vim.keymap.set('n', '<leader>sb', telescope.buffers, { noremap = true, silent = true, desc = 'Find existing buffers' })
+vim.keymap.set('n', '<leader>sg', telescope.live_grep, { noremap = true, silent = true, desc = 'Search by Grep in project' })
 
 vim.keymap.set('n', '<leader>sd', function()
   telescope.diagnostics { path_display = { 'hidden' } }
-end, { desc = 'Search Diagnostics' })
+end, { noremap = true, silent = true, desc = 'Search Diagnostics' })
 
 -- Slightly advanced example of overriding default behavior and theme
 vim.keymap.set('n', '<leader>/', function()
@@ -97,7 +112,7 @@ vim.keymap.set('n', '<leader>/', function()
     winblend = 10,
     previewer = false,
   })
-end, { desc = '[/] Fuzzily search in current buffer' })
+end, { noremap = true, silent = true, desc = '[/] Fuzzily search in current buffer' })
 
 -- It's also possible to pass additional configuration options.
 --  See `:help telescope.builtin.live_grep()` for information about particular keys
@@ -106,26 +121,31 @@ vim.keymap.set('n', '<leader>s/', function()
     grep_open_files = true,
     prompt_title = 'Live Grep in Open Files',
   }
-end, { desc = '[S]earch [/] in Open Files' })
+end, { noremap = true, silent = true, desc = '[S]earch [/] in Open Files' })
 
 -- Shortcut for searching your Neovim configuration files
 vim.keymap.set('n', '<leader>sn', function()
   telescope.find_files { cwd = vim.fn.stdpath 'config' }
-end, { desc = '[S]earch [N]eovim files' })
+end, { noremap = true, silent = true, desc = '[S]earch [N]eovim files' })
 
 -----------------------------------
 -- Diagnostics GoTo Commands
 -----------------------------------
-vim.keymap.set('n', '<C-PageDown>', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
-vim.keymap.set('n', '<C-PageUp>', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic' })
+vim.keymap.set('n', '<C-PageDown>', vim.diagnostic.goto_next, { noremap = true, silent = true, desc = 'Go to next diagnostic' })
+vim.keymap.set('n', '<C-PageUp>', vim.diagnostic.goto_prev, { noremap = true, silent = true, desc = 'Go to previous diagnostic' })
 
 -----------------------------------
 -- Trouble
 -----------------------------------
-vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle focus=true<cr>', { desc = 'Trouble: Diagnostics' })
-vim.keymap.set('n', '<leader>xv', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = 'Trouble: Variables' })
-vim.keymap.set('n', '<leader>xc', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = 'Trouble: Full Symbol Context  ' })
--- vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { desc = 'Trouble: Quickfix List' })
+vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle focus=true<cr>', { noremap = true, silent = true, desc = 'Trouble: Diagnostics' })
+vim.keymap.set('n', '<leader>xv', '<cmd>Trouble symbols toggle focus=false<cr>', { noremap = true, silent = true, desc = 'Trouble: Variables' })
+vim.keymap.set(
+  'n',
+  '<leader>xc',
+  '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+  { noremap = true, silent = true, desc = 'Trouble: Full Symbol Context  ' }
+)
+-- vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { noremap = true, silent = true, desc = 'Trouble: Quickfix List' })
 
 -----------------------------------
 -- Default commenting remapping
@@ -140,17 +160,17 @@ vim.keymap.del('o', 'gc')
 local operator_rhs = function()
   return require('vim._comment').operator()
 end
-vim.keymap.set({ 'n', 'x' }, 'ff', operator_rhs, { expr = true, desc = 'Toggle comment' })
+vim.keymap.set({ 'n', 'x' }, 'ff', operator_rhs, { noremap = true, silent = true, expr = true, desc = 'Toggle comment' })
 
 local line_rhs = function()
   return require('vim._comment').operator() .. '_'
 end
-vim.keymap.set('n', 'fa', line_rhs, { expr = true, desc = 'Toggle comment line' })
+vim.keymap.set('n', 'fa', line_rhs, { noremap = true, silent = true, expr = true, desc = 'Toggle comment line' })
 
 local textobject_rhs = function()
   require('vim._comment').textobject()
 end
-vim.keymap.set({ 'o' }, 'ff', textobject_rhs, { desc = 'Comment textobject' })
+vim.keymap.set({ 'o' }, 'ff', textobject_rhs, { noremap = true, silent = true, desc = 'Comment textobject' })
 
 -----------------------------------
 -- Custom commenting
@@ -163,7 +183,7 @@ vim.keymap.set({ 'o' }, 'ff', textobject_rhs, { desc = 'Comment textobject' })
 vim.keymap.set('n', 'fd', function()
   vim.cmd 'normal Vip'
   vim.cmd 'normal ff'
-end, { desc = 'Toggle comment inner paragraph' })
+end, { noremap = true, silent = true, desc = 'Toggle comment inner paragraph' })
 
 --
 -- Toggle comment code until `# ---` above
@@ -216,27 +236,27 @@ vim.keymap.set('n', 'fs', function()
   -- Return the cursor to the original line
   vim.fn.cursor(start_line, 1)
   -- Description for help
-end, { desc = 'Toggle comment until # -- above' })
+end, { noremap = true, silent = true, desc = 'Toggle comment until # -- above' })
 
 -----------------------------------
 -- Visual Selection
 -----------------------------------
-vim.keymap.set('n', '<leader>vv', 'v$h', { desc = 'Select to the end of the line' })
+vim.keymap.set('n', '<leader>vv', 'v$h', { noremap = true, silent = true, desc = 'Select to the end of the line' })
 
 -----------------------------------
 -- Move cursor in Insert mode
 -----------------------------------
 
-vim.keymap.set('i', '<C-l>', '<Right>', { desc = 'Cursor step right in Insert mode' })
-vim.keymap.set('i', '<C-л>', '<Right>', { desc = 'Cursor step right in Insert mode' })
+vim.keymap.set('i', '<C-l>', '<Right>', { noremap = true, silent = true, desc = 'Cursor step right in Insert mode' })
+vim.keymap.set('i', '<C-л>', '<Right>', { noremap = true, silent = true, desc = 'Cursor step right in Insert mode' })
 
-vim.keymap.set('i', '<C-h>', '<Left>', { desc = 'Cursor step left in Insert mode' })
-vim.keymap.set('i', '<C-ь>', '<Left>', { desc = 'Cursor step left in Insert mode' })
+vim.keymap.set('i', '<C-h>', '<Left>', { noremap = true, silent = true, desc = 'Cursor step left in Insert mode' })
+vim.keymap.set('i', '<C-ь>', '<Left>', { noremap = true, silent = true, desc = 'Cursor step left in Insert mode' })
 
 -----------------------------------
 -- Code run
 -----------------------------------
-vim.keymap.set('n', '<leader>rr', ':!python %<CR>', { desc = 'Run Current Python file' })
+vim.keymap.set('n', '<leader>rr', ':!python %<CR>', { noremap = true, silent = true, desc = 'Run Current Python file' })
 vim.keymap.set('n', '<Leader>rc', '<cmd>Run<cr>', { noremap = true, silent = true, desc = 'Run with CodeRunner + Console stays' })
 
 -----------------------------------
@@ -248,14 +268,14 @@ vim.keymap.set('n', '<leader>M', ':Mason<CR>') -- toggle git blame
 -----------------------------------
 -- Bookmarks
 -----------------------------------
-vim.keymap.set({ 'n', 'v' }, 'mm', '<cmd>BookmarksMark<cr>', { desc = 'Mark current line into active BookmarkList.' })
-vim.keymap.set({ 'n', 'v' }, 'mo', '<cmd>BookmarksGoto<cr>', { desc = 'Go to bookmark at current active BookmarkList' })
-vim.keymap.set({ 'n', 'v' }, 'm1', '<cmd>BookmarksGotoPrev<cr>', { desc = 'Go to next bookmark in line number order' })
-vim.keymap.set({ 'n', 'v' }, 'm2', '<cmd>BookmarksGotoNext<cr>', { desc = 'Go to previous bookmark in line number order' })
+vim.keymap.set({ 'n', 'v' }, 'mm', '<cmd>BookmarksMark<cr>', { noremap = true, silent = true, desc = 'Mark current line into active BookmarkList.' })
+vim.keymap.set({ 'n', 'v' }, 'mo', '<cmd>BookmarksGoto<cr>', { noremap = true, silent = true, desc = 'Go to bookmark at current active BookmarkList' })
+vim.keymap.set({ 'n', 'v' }, 'm1', '<cmd>BookmarksGotoPrev<cr>', { noremap = true, silent = true, desc = 'Go to next bookmark in line number order' })
+vim.keymap.set({ 'n', 'v' }, 'm2', '<cmd>BookmarksGotoNext<cr>', { noremap = true, silent = true, desc = 'Go to previous bookmark in line number order' })
 
 vim.keymap.set({ 'n', 'v' }, 'md', function()
   require('bookmarks.commands').delete_mark_of_current_file()
-end, { desc = 'Clear All Bookmark in File' })
+end, { noremap = true, silent = true, desc = 'Clear All Bookmark in File' })
 
 -----------------------------------
 -- Copilot
@@ -265,11 +285,11 @@ vim.g.copilot_assume_mapped = true
 vim.keymap.set('i', '<M-CR>', function()
   vim.fn.feedkeys(vim.fn['copilot#Accept'](), 'n')
 end, { expr = true, silent = true })
-vim.keymap.set('i', '<M-]>', '<Plug>(copilot-next)')
-vim.keymap.set('i', '<M-[>', '<Plug>(copilot-previous)')
-vim.keymap.set('n', '<leader>cc', ':CopilotChat<CR>', { desc = 'CopilotChat' })
-vim.keymap.set('n', '<leader>cd', ':Copilot disable<CR>', { desc = 'Copilot disable' })
-vim.keymap.set('n', '<leader>ce', ':Copilot enable<CR>', { desc = 'Copilot enable' })
+vim.keymap.set('i', '<M-]>', '<Plug>(copilot-next)', { noremap = true, silent = true })
+vim.keymap.set('i', '<M-[>', '<Plug>(copilot-previous)', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>cc', ':CopilotChat<CR>', { noremap = true, silent = true, desc = 'CopilotChat' })
+vim.keymap.set('n', '<leader>cd', ':Copilot disable<CR>', { noremap = true, silent = true, desc = 'Copilot disable' })
+vim.keymap.set('n', '<leader>ce', ':Copilot enable<CR>', { noremap = true, silent = true, desc = 'Copilot enable' })
 
 -----------------------------------
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -294,159 +314,120 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { noremap = true, silent = true, desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { noremap = true, silent = true, desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { noremap = true, silent = true, desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { noremap = true, silent = true, desc = 'Move focus to the upper window' })
 
 -----------------------------------
 -- Nvim-tree
 -----------------------------------
-vim.keymap.set('n', '<leader>ee', ':NvimTreeToggle<CR>') -- toggle file explorer
-vim.keymap.set('n', '<leader>er', ':NvimTreeFocus<CR>') -- toggle focus to file explorer
+vim.keymap.set('n', '<leader>ee', ':NvimTreeToggle<CR>', { noremap = true, silent = true, desc = 'Toggle File Tree' })
+vim.keymap.set('n', '<leader>er', ':NvimTreeFocus<CR>', { noremap = true, silent = true, desc = 'Focus to File Tree' })
 
 -----------------------------------
 -- Breakpoints
 -----------------------------------
 -- vim.keymap.set('n', '<leader>bb', "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
-vim.keymap.set('n', '<leader>bb', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-vim.keymap.set('n', '<leader>br', dap.clear_breakpoints, { desc = 'Debug: Clear All Breakpoints' })
+vim.keymap.set('n', '<leader>bb', dap.toggle_breakpoint, { noremap = true, silent = true, desc = 'Debug: Toggle Breakpoint' })
+vim.keymap.set('n', '<leader>br', dap.clear_breakpoints, { noremap = true, silent = true, desc = 'Debug: Clear All Breakpoints' })
 
 vim.keymap.set('n', '<leader>bB', function()
   dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-end, { desc = 'Debug: Set Named Breakpoint' })
+end, { noremap = true, silent = true, desc = 'Debug: Set Named Breakpoint' })
 
 -----------------------------------
 -- Debugging
 -----------------------------------
-vim.keymap.set('n', '<leader>dd', dap.continue, { desc = 'Debug: Start/Continue' })
-vim.keymap.set('n', '<leader>di', dap.step_into, { desc = 'Debug: Step Into Function' })
-vim.keymap.set('n', '<leader>do', dap.step_out, { desc = 'Debug: Step Out Function' })
-vim.keymap.set('n', '<leader>dj', dap.step_over, { desc = 'Debug: Jump Over Function' })
+vim.keymap.set('n', '<leader>dd', dap.continue, { noremap = true, silent = true, desc = 'Debug: Start/Continue' })
+vim.keymap.set('n', '<leader>di', dap.step_into, { noremap = true, silent = true, desc = 'Debug: Step Into Function' })
+vim.keymap.set('n', '<leader>do', dap.step_out, { noremap = true, silent = true, desc = 'Debug: Step Out Function' })
+vim.keymap.set('n', '<leader>dj', dap.step_over, { noremap = true, silent = true, desc = 'Debug: Jump Over Function' })
 
 vim.keymap.set('n', '<leader>dt', function()
   dap.terminate()
   dapui.close()
-end, { desc = 'Debug: Terminate' })
+end, { noremap = true, silent = true, desc = 'Debug: Terminate' })
 
-vim.keymap.set('n', '<leader>dc', dap.repl.toggle, { desc = 'Debug: toggle console' })
+vim.keymap.set('n', '<leader>dc', dap.repl.toggle, { noremap = true, silent = true, desc = 'Debug: toggle console' })
 
 vim.keymap.set('n', '<leader>dv', function()
   require('dap.ui.widgets').hover()
-end, { desc = 'Debug: Show Value of Variable under cursor' })
+end, { noremap = true, silent = true, desc = 'Debug: Show Value of Variable under cursor' })
 
 vim.keymap.set('n', '<leader>d?', function()
   local widgets = require 'dap.ui.widgets'
   widgets.centered_float(widgets.scopes)
-end, { desc = 'Debug: Show All Variables of Scope' })
+end, { noremap = true, silent = true, desc = 'Debug: Show All Variables of Scope' })
 
 -----------------------------------
 -- Harpoon
 -----------------------------------
-local harpoon = require 'harpoon'
-harpoon:setup()
 
 vim.keymap.set('n', '<leader>ha', function()
   harpoon:list():add()
-end, { desc = 'Harpoon add' })
+end, { noremap = true, silent = true, desc = 'Harpoon add' })
 vim.keymap.set('n', '<leader>hh', function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
-end, { desc = 'Harpoon list' })
+end, { noremap = true, silent = true, desc = 'Harpoon list' })
 
-vim.keymap.set('n', '<leader>1', function()
-  harpoon:list():select(1)
-end, { desc = 'Harpoon: buffer 1' })
-vim.keymap.set('n', '<leader>2', function()
-  harpoon:list():select(2)
-end, { desc = 'Harpoon: buffer 2' })
-vim.keymap.set('n', '<leader>3', function()
-  harpoon:list():select(3)
-end, { desc = 'Harpoon: buffer 3' })
-vim.keymap.set('n', '<leader>4', function()
-  harpoon:list():select(4)
-end, { desc = 'Harpoon: buffer 4' })
-vim.keymap.set('n', '<leader>5', function()
-  harpoon:list():select(5)
-end, { desc = 'Harpoon: buffer 5' })
-vim.keymap.set('n', '<leader>6', function()
-  harpoon:list():select(6)
-end, { desc = 'Harpoon: buffer 6' })
-vim.keymap.set('n', '<leader>7', function()
-  harpoon:list():select(7)
-end, { desc = 'Harpoon: buffer 7' })
-vim.keymap.set('n', '<leader>8', function()
-  harpoon:list():select(8)
-end, { desc = 'Harpoon: buffer 8' })
-vim.keymap.set('n', '<leader>9', function()
-  harpoon:list():select(9)
-end, { desc = 'Harpoon: buffer 9' })
+-- Generate map for buffers 1-9 with loop
+for i = 1, 9 do
+  vim.keymap.set('n', '<leader>' .. i, function()
+    harpoon:list():select(i)
+  end, { noremap = true, silent = true, desc = 'Harpoon: buffer ' .. i })
+end
 
 -----------------------------------
 -- zen-mode.nvim
 -----------------------------------
-vim.keymap.set('n', '<leader>z', ':ZenMode<CR>:wincmd |<CR>', { desc = 'Zen Mode' })
+vim.keymap.set('n', '<leader>z', ':ZenMode<CR>:wincmd |<CR>', { noremap = true, silent = true, desc = 'Zen Mode' })
 
 -----------------------------------
 -- Neotest
 -----------------------------------
 vim.keymap.set('n', '<leader>tn', function()
   require('neotest').run.run()
-end, { desc = 'Run nearest test in the file' })
+end, { noremap = true, silent = true, desc = 'Run nearest test in the file' })
 
 vim.keymap.set('n', '<leader>tt', function()
   require('neotest').run.run(vim.fn.expand '%')
-end, { desc = 'Run all the tests in the file' })
+end, { noremap = true, silent = true, desc = 'Run all the tests in the file' })
 
 vim.keymap.set('n', '<leader>to', function()
   require('neotest').output.open { enter = true }
-end, { desc = 'output.open' })
+end, { noremap = true, silent = true, desc = 'output.open' })
 
 vim.keymap.set('n', '<leader>ts', function()
   require('neotest').summary.toggle()
-end, { desc = 'summary_toggle' })
+end, { noremap = true, silent = true, desc = 'summary_toggle' })
 
 vim.keymap.set('n', '<leader>tw', function()
   require('neotest').watch.watch()
-end, { desc = 'watch current test for changes' })
+end, { noremap = true, silent = true, desc = 'watch current test for changes' })
 
 -----------------------------------
 -- Other plugins
 -----------------------------------
-vim.keymap.set('n', '<leader>ou', vim.cmd.UndotreeToggle, { desc = 'UndoTree' })
-vim.keymap.set('n', '<leader>oa', "<cmd>lua require('nvim-autopairs').toggle()<cr>", { desc = 'Toggle Autopairs' })
-vim.keymap.set('n', '<leader>og', ':GitBlameToggle<CR>', { desc = 'Toggle Git Blame' })
-
------------------------------------
--- Barbar
------------------------------------
+vim.keymap.set('n', '<leader>ou', vim.cmd.UndotreeToggle, { noremap = true, silent = true, desc = 'UndoTree' })
+vim.keymap.set('n', '<leader>oa', "<cmd>lua require('nvim-autopairs').toggle()<cr>", { noremap = true, silent = true, desc = 'Toggle Autopairs' })
+vim.keymap.set('n', '<leader>og', ':GitBlameToggle<CR>', { noremap = true, silent = true, desc = 'Toggle Git Blame' })
 
 -----------------------------------
 -- AutoTyping
 -----------------------------------
 -- Code Blocks
-vim.keymap.set('n', '<leader>acb', 'i```bash<cr><cr>```<cr><cr><esc>', { desc = 'Code Block: bash' })
-vim.keymap.set('n', '<leader>acp', 'i```python<cr><cr>```<cr><cr><esc>', { desc = 'Code Block: python' })
-vim.keymap.set('n', '<leader>acl', 'i```lua<cr><cr>```<cr><cr><esc>', { desc = 'Code Block: lua' })
+vim.keymap.set('n', '<leader>acb', 'i```bash<cr><cr>```<cr><cr><esc>', { noremap = true, silent = true, desc = 'Code Block: bash' })
+vim.keymap.set('n', '<leader>acp', 'i```python<cr><cr>```<cr><cr><esc>', { noremap = true, silent = true, desc = 'Code Block: python' })
+vim.keymap.set('n', '<leader>acl', 'i```lua<cr><cr>```<cr><cr><esc>', { noremap = true, silent = true, desc = 'Code Block: lua' })
 
 -- Special
-vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { desc = '> Sign' })
+vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true, desc = '> Sign' })
 
 -- Callouts
-vim.keymap.set('n', '<leader>aw', 'i>[!warning] ', { desc = 'Warning' })
-vim.keymap.set('n', '<leader>at', 'i>[!tip] ', { desc = 'Tip' })
-vim.keymap.set('n', '<leader>ad', 'i>[!danger] ', { desc = 'Danger' })
-vim.keymap.set('n', '<leader>ae', 'i>[!example] ', { desc = 'Example' })
-vim.keymap.set('n', '<leader>ab', 'i>[!bug] ', { desc = 'Bug' })
-vim.keymap.set('n', '<leader>ac', 'i>[!caution] ', { desc = 'Caution' })
-
------------------------------------
--- Templates for this file
------------------------------------
-
--- vim.keymap.set('n', '<leader>h', "<cmd>lua <cr>")
-
--- vim.keymap.set('n', '<leader>to', ':lua require("neotest").output.open({enter = true})<CR>', { noremap = true, silent = true })
-
--- vim.keymap.set('n', '<leader>to', function()
---   require('neotest').output.open { enter = true }
--- end, { desc = 'output.open' })
+vim.keymap.set('n', '<leader>aw', 'i>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
+vim.keymap.set('n', '<leader>at', 'i>[!tip] ', { noremap = true, silent = true, desc = 'Tip' })
+vim.keymap.set('n', '<leader>ad', 'i>[!danger] ', { noremap = true, silent = true, desc = 'Danger' })
+vim.keymap.set('n', '<leader>ae', 'i>[!example] ', { noremap = true, silent = true, desc = 'Example' })
+vim.keymap.set('n', '<leader>ab', 'i>[!bug] ', { noremap = true, silent = true, desc = 'Bug' })
+vim.keymap.set('n', '<leader>ac', 'i>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
