@@ -46,6 +46,13 @@ vim.keymap.set('n', '<leader>me', 'i(<Esc>A)<Esc>', { noremap = true, silent = t
 vim.keymap.set('n', '<leader>mc', 'i(<Esc>$i)<Esc>', { noremap = true, silent = true, desc = 'Surround with () to < : >' })
 
 vim.keymap.set('n', '<leader>mp', 'Iprint(<Esc>$A)<Esc>', { noremap = true, silent = true, desc = 'Move Line Into < print(*) >' })
+vim.keymap.set('n', '<leader>mm', '@1', { noremap = true, silent = true, desc = 'Macros 1 Exec' })
+
+-- Case under cursor Up | Down
+vim.keymap.set('n', '<leader>mj', 'vgu', { noremap = true, silent = true, desc = 'Letter Case Down' })
+vim.keymap.set('n', '<leader>mk', 'vgU', { noremap = true, silent = true, desc = 'Letter Case Up' })
+vim.keymap.set('n', '<leader>mJ', 'viwgu', { noremap = true, silent = true, desc = 'Word Case Down' })
+vim.keymap.set('n', '<leader>mK', 'viwgU', { noremap = true, silent = true, desc = 'Word Case Up' })
 
 -----------------------------------
 -- LSP
@@ -416,9 +423,10 @@ vim.keymap.set('n', '<leader>og', ':GitBlameToggle<CR>', { noremap = true, silen
 -- AutoTyping
 -----------------------------------
 -- Code Blocks
-vim.keymap.set('n', '<leader>acb', 'i```bash<cr><cr>```<cr><cr><esc>', { noremap = true, silent = true, desc = 'Code Block: bash' })
-vim.keymap.set('n', '<leader>acp', 'i```python<cr><cr>```<cr><cr><esc>', { noremap = true, silent = true, desc = 'Code Block: python' })
-vim.keymap.set('n', '<leader>acl', 'i```lua<cr><cr>```<cr><cr><esc>', { noremap = true, silent = true, desc = 'Code Block: lua' })
+vim.keymap.set('n', '<leader>acb', 'i```bash<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: bash' })
+vim.keymap.set('n', '<leader>acp', 'i```python<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: python' })
+vim.keymap.set('n', '<leader>acl', 'i```lua<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: lua' })
+vim.keymap.set('n', '<leader>ach', 'i```hyprlang<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: hyprlang' })
 
 -- Special
 vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true, desc = '> Sign' })
@@ -427,6 +435,7 @@ vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true
 vim.keymap.set('n', '<leader>aw', 'i>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
 vim.keymap.set('n', '<leader>at', 'i>[!tip] ', { noremap = true, silent = true, desc = 'Tip' })
 vim.keymap.set('n', '<leader>ad', 'i>[!danger] ', { noremap = true, silent = true, desc = 'Danger' })
+vim.keymap.set('n', '<leader>aC', 'i>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
 vim.keymap.set('n', '<leader>ae', 'i>[!example] ', { noremap = true, silent = true, desc = 'Example' })
 vim.keymap.set('n', '<leader>ab', 'i>[!bug] ', { noremap = true, silent = true, desc = 'Bug' })
 vim.keymap.set('n', '<leader>ac', 'i>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
