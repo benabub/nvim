@@ -23,7 +23,7 @@ require('lazy').setup({
 
   -- NOTE: The import below can automatically add your own plugins, configuration
   { import = 'plugins.core' },
-  { import = 'plugins.custom' },
+  { import = 'plugins.pack' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
