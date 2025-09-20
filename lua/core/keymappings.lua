@@ -6,6 +6,7 @@ local dap = require 'dap'
 local dapui = require 'dapui'
 local harpoon = require 'harpoon'
 harpoon:setup()
+local gitsigns = require 'gitsigns'
 
 -----------------------------------
 -- URL
@@ -261,6 +262,60 @@ vim.keymap.set('i', '<C-h>', '<Left>', { noremap = true, silent = true, desc = '
 vim.keymap.set('i', '<C-ь>', '<Left>', { noremap = true, silent = true, desc = 'Cursor step left in Insert mode' })
 
 -----------------------------------
+-- gitsigns
+-----------------------------------
+
+-- Jump to change
+vim.keymap.set('n', ']c', function()
+  if vim.wo.diff then
+    vim.cmd.normal { ']c', bang = true }
+  else
+    gitsigns.nav_hunk 'next'
+  end
+end, { noremap = true, silent = true, desc = 'Jump to Next Git Change' })
+
+vim.keymap.set('n', '[c', function()
+  if vim.wo.diff then
+    vim.cmd.normal { '[c', bang = true }
+  else
+    gitsigns.nav_hunk 'prev'
+  end
+end, { noremap = true, silent = true, desc = 'Jump to Previous Git Change' })
+
+-- Add / Remove from stage
+vim.keymap.set('v', '<leader>ga', function()
+  gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
+end, { noremap = true, silent = true, desc = 'Toggle Stage Git Hunk' })
+
+-- vim.keymap.set('v', '<leader>gr', function()
+--   gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
+-- end, { noremap = true, silent = true, desc = 'Reset Git Hunk' })
+
+vim.keymap.set('n', '<leader>ga', gitsigns.stage_hunk, { noremap = true, silent = true, desc = 'Toggle Stage Git Hunk' })
+-- vim.keymap.set('n', '<leader>gr', gitsigns.reset_hunk, { noremap = true, silent = true, desc = 'Reset Git Hunk' })
+
+vim.keymap.set('n', '<leader>gA', gitsigns.stage_buffer, { noremap = true, silent = true, desc = 'Git Stage Buffer' })
+vim.keymap.set('n', '<leader>gR', gitsigns.reset_buffer, { noremap = true, silent = true, desc = 'Git Reset Buffer (DontWork)' })
+
+-- Blame line
+vim.keymap.set('n', '<leader>gb', gitsigns.blame_line, { noremap = true, silent = true, desc = 'Git Blame Line' })
+vim.keymap.set('n', '<leader>gB', ':GitBlameToggle<CR>', { noremap = true, silent = true, desc = 'Toggle Git Show Blame Line' })
+-- vim.keymap.set('n', '<leader>gB', gitsigns.toggle_current_line_blame, { noremap = true, silent = true, desc = 'Toggle Git Show Blame Line' })
+
+-- Preview
+vim.keymap.set('n', '<leader>gp', gitsigns.preview_hunk, { noremap = true, silent = true, desc = 'Git Preview Hunk' })
+
+-- Show Deleted
+vim.keymap.set('n', '<leader>gx', gitsigns.toggle_deleted, { noremap = true, silent = true, desc = 'Toggle Git Show Deleted' })
+
+-- Diff mode
+vim.keymap.set('n', '<leader>gd', gitsigns.diffthis, { noremap = true, silent = true, desc = 'Git Diff Against Index' })
+
+vim.keymap.set('n', '<leader>gD', function()
+  gitsigns.diffthis '@'
+end, { noremap = true, silent = true, desc = 'Git Diff Against Last Commit' })
+
+-----------------------------------
 -- Code run
 -----------------------------------
 vim.keymap.set('n', '<leader>rr', ':!python %<CR>', { noremap = true, silent = true, desc = 'Run Current Python file' })
@@ -269,8 +324,8 @@ vim.keymap.set('n', '<Leader>rc', '<cmd>Run<cr>', { noremap = true, silent = tru
 -----------------------------------
 -- Mason & Lazy fast
 -----------------------------------
-vim.keymap.set('n', '<leader>L', ':Lazy<CR>') -- toggle git blame
-vim.keymap.set('n', '<leader>M', ':Mason<CR>') -- toggle git blame
+vim.keymap.set('n', '<leader>L', ':Lazy<CR>', { noremap = true, silent = true, desc = 'Lazy' })
+vim.keymap.set('n', '<leader>M', ':Mason<CR>', { noremap = true, silent = true, desc = 'Mason' })
 
 -----------------------------------
 -- Bookmarks
@@ -412,7 +467,6 @@ vim.keymap.set('n', '<leader>z', ':ZenMode<CR>:wincmd |<CR>', { noremap = true, 
 -----------------------------------
 vim.keymap.set('n', '<leader>ou', vim.cmd.UndotreeToggle, { noremap = true, silent = true, desc = 'UndoTree' })
 vim.keymap.set('n', '<leader>oa', "<cmd>lua require('nvim-autopairs').toggle()<cr>", { noremap = true, silent = true, desc = 'Toggle Autopairs' })
-vim.keymap.set('n', '<leader>og', ':GitBlameToggle<CR>', { noremap = true, silent = true, desc = 'Toggle Git Blame' })
 
 -----------------------------------
 -- AutoTyping
