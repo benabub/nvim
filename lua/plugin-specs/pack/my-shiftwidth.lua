@@ -1,10 +1,10 @@
 return {
   {
-    dir = '~/.config/nvim/lua/custom-plugins', -- путь к папке
-    name = 'shiftwidth', -- любое имя
+    dir = '~/.config/nvim/lua/custom-plugins', -- path to dir
+    name = 'shiftwidth', -- name for lazy manager only
     config = function()
-      require('custom-plugins.shiftwidth').setup() -- запускаем наш плагин
+      require('custom-plugins.shiftwidth').setup() -- start plugin
     end,
-    event = 'BufEnter', -- когда грузить
+    event = 'BufEnter', -- inition
   },
 }

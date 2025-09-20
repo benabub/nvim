@@ -53,7 +53,7 @@ return {
         { '<leader>o', group = 'Other Plugins' },
         { '<leader>m', group = 'Manipulations' },
         { '<leader>c', group = 'Copilot' },
-        { '<leader>t', group = 'Testing' },
+        { '<leader>t', group = 'Terminal' },
         { '<leader>x', group = 'Trouble' },
         { '<leader>h', group = 'Harpoon' },
         { '<leader>v', group = 'Visual Selection' },

@@ -306,13 +306,8 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -----------------------------------
 -- Terminal
 -----------------------------------
--- vim.keymap.set('n', '<F5>', ':ToggleTerm size=40 dir=~/Desktop direction=float name=desktop<CR>') -- toggle
-
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', '<leader>tt', "<cmd>lua require('FTerm').open()<cr>", { noremap = true, silent = true, desc = 'Terminal Open' })
+vim.keymap.set('t', '<esc>', "<cmd>lua require('FTerm').exit()<cr>", { noremap = true, silent = true, desc = 'Terminal Exit' })
 
 -----------------------------------
 -- Keybinds to make split navigation easier.
@@ -392,25 +387,25 @@ vim.keymap.set('n', '<leader>z', ':ZenMode<CR>:wincmd |<CR>', { noremap = true, 
 -----------------------------------
 -- Neotest
 -----------------------------------
-vim.keymap.set('n', '<leader>tn', function()
-  require('neotest').run.run()
-end, { noremap = true, silent = true, desc = 'Run nearest test in the file' })
-
-vim.keymap.set('n', '<leader>tt', function()
-  require('neotest').run.run(vim.fn.expand '%')
-end, { noremap = true, silent = true, desc = 'Run all the tests in the file' })
-
-vim.keymap.set('n', '<leader>to', function()
-  require('neotest').output.open { enter = true }
-end, { noremap = true, silent = true, desc = 'output.open' })
-
-vim.keymap.set('n', '<leader>ts', function()
-  require('neotest').summary.toggle()
-end, { noremap = true, silent = true, desc = 'summary_toggle' })
-
-vim.keymap.set('n', '<leader>tw', function()
-  require('neotest').watch.watch()
-end, { noremap = true, silent = true, desc = 'watch current test for changes' })
+-- vim.keymap.set('n', '<leader>tn', function()
+--   require('neotest').run.run()
+-- end, { noremap = true, silent = true, desc = 'Run nearest test in the file' })
+--
+-- vim.keymap.set('n', '<leader>tt', function()
+--   require('neotest').run.run(vim.fn.expand '%')
+-- end, { noremap = true, silent = true, desc = 'Run all the tests in the file' })
+--
+-- vim.keymap.set('n', '<leader>to', function()
+--   require('neotest').output.open { enter = true }
+-- end, { noremap = true, silent = true, desc = 'output.open' })
+--
+-- vim.keymap.set('n', '<leader>ts', function()
+--   require('neotest').summary.toggle()
+-- end, { noremap = true, silent = true, desc = 'summary_toggle' })
+--
+-- vim.keymap.set('n', '<leader>tw', function()
+--   require('neotest').watch.watch()
+-- end, { noremap = true, silent = true, desc = 'watch current test for changes' })
 
 -----------------------------------
 -- Other plugins
@@ -433,10 +428,10 @@ vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true
 vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><cr><esc>', { noremap = true, silent = true, desc = 'Line' })
 
 -- Callouts
-vim.keymap.set('n', '<leader>aw', 'i>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
-vim.keymap.set('n', '<leader>at', 'i>[!tip] ', { noremap = true, silent = true, desc = 'Tip' })
-vim.keymap.set('n', '<leader>ad', 'i>[!danger] ', { noremap = true, silent = true, desc = 'Danger' })
-vim.keymap.set('n', '<leader>aC', 'i>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
-vim.keymap.set('n', '<leader>ae', 'i>[!example] ', { noremap = true, silent = true, desc = 'Example' })
-vim.keymap.set('n', '<leader>ab', 'i>[!bug] ', { noremap = true, silent = true, desc = 'Bug' })
-vim.keymap.set('n', '<leader>ac', 'i>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
+vim.keymap.set('n', '<leader>aw', 'a>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
+vim.keymap.set('n', '<leader>at', 'a>[!tip] ', { noremap = true, silent = true, desc = 'Tip' })
+vim.keymap.set('n', '<leader>ad', 'a>[!danger] ', { noremap = true, silent = true, desc = 'Danger' })
+vim.keymap.set('n', '<leader>aC', 'a>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
+vim.keymap.set('n', '<leader>ae', 'a>[!example] ', { noremap = true, silent = true, desc = 'Example' })
+vim.keymap.set('n', '<leader>ab', 'a>[!bug] ', { noremap = true, silent = true, desc = 'Bug' })
+vim.keymap.set('n', '<leader>ac', 'a>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
