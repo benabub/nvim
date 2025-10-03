@@ -1,4 +1,38 @@
 -----------------------------------
+-- Modifiers map (case ignore)
+-----------------------------------
+
+-- <cmd> = nvim terminal command start
+--`<CR>` = Enter
+--`<C->` = Ctrl
+--`<A->` = Alt
+--`<S->` = Shift
+--`<Leader>` = user prefix
+--`<LocalLeader>` = local prefix
+--`<Esc>` = Escape
+--`<Tab>` = Tab
+--`<BS>` = Backspace
+--`<Space>` = space
+
+-- All combinations are surrouded by <> together
+
+-------------------------------------------------
+-- Default mapping: finding, deleting, remapping
+-------------------------------------------------
+
+-- simple way to check if mapping exists: `:verbose map key-word`,
+-- key-word examples: <c-w> (case ignore)
+
+-- coolest way to find mapping is to jump into nvim guts with live_grep:
+-- `:Telescope live_grep search_dirs={"$VIMRUNTIME"}` (there is such bind already in this config)
+-- Search by the desc phraze, which you see in which-key.
+-- NB: the guts are intouchable! - don't change anything!
+
+-- So, You find original defaut mapping: what's next?
+-- To clear mapping (here, in section below) you need to take mode + keys args
+-- To remap you need to take a command arg
+
+-----------------------------------
 -- locals
 -----------------------------------
 local telescope = require 'telescope.builtin'
@@ -7,6 +41,13 @@ local dapui = require 'dapui'
 local harpoon = require 'harpoon'
 harpoon:setup()
 local gitsigns = require 'gitsigns'
+
+-----------------------------------
+-- clearing annoying defaults
+-----------------------------------
+
+vim.keymap.del('n', '<C-w><C-D>')
+vim.keymap.del('n', '<C-W>d')
 
 -----------------------------------
 -- URL
@@ -86,6 +127,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- possible refactoring
     map('<leader>lc', vim.lsp.buf.code_action, 'Code Action')
 
+    map('<leader>ll', function()
+      vim.cmd 'LspRestart'
+    end, 'Restart LSP')
+
     -- for LSP inlay hints only (doesn't work, if there is no such configuration)
     local client = vim.lsp.get_client_by_id(event.data.client_id)
     if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
@@ -107,7 +152,14 @@ vim.keymap.set('n', '<leader>sw', telescope.grep_string, { noremap = true, silen
 vim.keymap.set('n', '<leader>sr', telescope.resume, { noremap = true, silent = true, desc = 'Search Resume' })
 vim.keymap.set('n', '<leader>s.', telescope.oldfiles, { noremap = true, silent = true, desc = 'Search Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader>sb', telescope.buffers, { noremap = true, silent = true, desc = 'Find existing buffers' })
-vim.keymap.set('n', '<leader>sg', telescope.live_grep, { noremap = true, silent = true, desc = 'Search by Grep in project' })
+vim.keymap.set('n', '<leader>sg', telescope.live_grep, { noremap = true, silent = true, desc = 'Live Grep in project' })
+
+vim.keymap.set(
+  'n',
+  '<leader>sx',
+  "<cmd>Telescope live_grep search_dirs={'$VIMRUNTIME'}<cr>",
+  { noremap = true, silent = true, desc = 'Live Grep in Nvim Defaults' }
+)
 
 vim.keymap.set('n', '<leader>sd', function()
   telescope.diagnostics { path_display = { 'hidden' } }
@@ -120,7 +172,7 @@ vim.keymap.set('n', '<leader>/', function()
     winblend = 10,
     previewer = false,
   })
-end, { noremap = true, silent = true, desc = '[/] Fuzzily search in current buffer' })
+end, { noremap = true, silent = true, desc = 'Fuzzily search in current buffer' })
 
 -- It's also possible to pass additional configuration options.
 --  See `:help telescope.builtin.live_grep()` for information about particular keys
@@ -129,21 +181,15 @@ vim.keymap.set('n', '<leader>s/', function()
     grep_open_files = true,
     prompt_title = 'Live Grep in Open Files',
   }
-end, { noremap = true, silent = true, desc = '[S]earch [/] in Open Files' })
+end, { noremap = true, silent = true, desc = 'Search in Open Files' })
 
 -- Shortcut for searching your Neovim configuration files
 vim.keymap.set('n', '<leader>sn', function()
   telescope.find_files { cwd = vim.fn.stdpath 'config' }
-end, { noremap = true, silent = true, desc = '[S]earch [N]eovim files' })
+end, { noremap = true, silent = true, desc = 'Search Neovim files' })
 
 -----------------------------------
--- Diagnostics GoTo Commands
------------------------------------
-vim.keymap.set('n', '<C-PageDown>', vim.diagnostic.goto_next, { noremap = true, silent = true, desc = 'Go to next diagnostic' })
-vim.keymap.set('n', '<C-PageUp>', vim.diagnostic.goto_prev, { noremap = true, silent = true, desc = 'Go to previous diagnostic' })
-
------------------------------------
--- Trouble
+-- Diagnostics | Trouble
 -----------------------------------
 vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle focus=true<cr>', { noremap = true, silent = true, desc = 'Trouble: Diagnostics' })
 vim.keymap.set('n', '<leader>xv', '<cmd>Trouble symbols toggle focus=false<cr>', { noremap = true, silent = true, desc = 'Trouble: Variables' })
@@ -154,6 +200,10 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = 'Trouble: Full Symbol Context  ' }
 )
 -- vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { noremap = true, silent = true, desc = 'Trouble: Quickfix List' })
+
+vim.keymap.set('n', '<leader>xc', function()
+  vim.diagnostic.open_float()
+end, { desc = 'Show diagnostics under the cursor' })
 
 -----------------------------------
 -- Default commenting remapping
@@ -319,7 +369,7 @@ end, { noremap = true, silent = true, desc = 'Git Diff Against Last Commit' })
 -- Code run
 -----------------------------------
 vim.keymap.set('n', '<leader>rr', ':!python %<CR>', { noremap = true, silent = true, desc = 'Run Current Python file' })
-vim.keymap.set('n', '<Leader>rc', '<cmd>Run<cr>', { noremap = true, silent = true, desc = 'Run with CodeRunner + Console stays' })
+vim.keymap.set('n', '<Leader>rc', '<cmd>Run<cr>', { noremap = true, silent = true, desc = 'Run with CodeRunner (Console stays)' })
 
 -----------------------------------
 -- Mason & Lazy fast
@@ -482,10 +532,10 @@ vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true
 vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><cr><esc>', { noremap = true, silent = true, desc = 'Line' })
 
 -- Callouts
-vim.keymap.set('n', '<leader>aw', 'a>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
-vim.keymap.set('n', '<leader>at', 'a>[!tip] ', { noremap = true, silent = true, desc = 'Tip' })
-vim.keymap.set('n', '<leader>ad', 'a>[!danger] ', { noremap = true, silent = true, desc = 'Danger' })
-vim.keymap.set('n', '<leader>aC', 'a>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
-vim.keymap.set('n', '<leader>ae', 'a>[!example] ', { noremap = true, silent = true, desc = 'Example' })
-vim.keymap.set('n', '<leader>ab', 'a>[!bug] ', { noremap = true, silent = true, desc = 'Bug' })
-vim.keymap.set('n', '<leader>ac', 'a>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
+vim.keymap.set('n', '<leader>aw', 'i>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
+vim.keymap.set('n', '<leader>at', 'i>[!tip] ', { noremap = true, silent = true, desc = 'Tip' })
+vim.keymap.set('n', '<leader>ad', 'i>[!danger] ', { noremap = true, silent = true, desc = 'Danger' })
+vim.keymap.set('n', '<leader>aC', 'i>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
+vim.keymap.set('n', '<leader>ae', 'i>[!example] ', { noremap = true, silent = true, desc = 'Example' })
+vim.keymap.set('n', '<leader>ab', 'i>[!bug] ', { noremap = true, silent = true, desc = 'Bug' })
+vim.keymap.set('n', '<leader>ac', 'i>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })

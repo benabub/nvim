@@ -54,11 +54,12 @@ return {
         { '<leader>m', group = 'Manipulations' },
         { '<leader>c', group = 'Copilot' },
         { '<leader>t', group = 'Terminal' },
-        { '<leader>x', group = 'Trouble' },
+        { '<leader>x', group = 'Diagnostics | Trouble' },
         { '<leader>h', group = 'Harpoon' },
         { '<leader>v', group = 'Visual Selection' },
         { '<leader>a', group = 'AutoType' },
         { '<leader>ac', group = 'Code Blocks' },
+        { '<leader>g', group = 'Git' },
         -- free:
         -- q y u i p
         -- f g j k
