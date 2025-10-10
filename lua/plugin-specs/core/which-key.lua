@@ -60,10 +60,11 @@ return {
         { '<leader>a', group = 'AutoType' },
         { '<leader>ac', group = 'Code Blocks' },
         { '<leader>g', group = 'Git' },
+        { '<leader>n', group = 'Navigation' },
         -- free:
         -- q y u i p
         -- f g j k
-        -- z x n
+        -- z x
       },
     },
   },

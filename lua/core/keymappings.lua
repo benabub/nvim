@@ -76,9 +76,10 @@ for i = 1, 9 do
 end
 
 -----------------------------------
--- Autotyping
+-- Navigation
 -----------------------------------
-vim.keymap.set('n', '<CR>', 'o<Esc>', { noremap = true, silent = true, desc = 'New underline' })
+
+vim.keymap.set('n', '<leader>nn', '<Cmd>Navbuddy<CR>', { noremap = true, silent = true, desc = 'NavBuddy' })
 
 -----------------------------------
 -- Manipulations
@@ -521,6 +522,9 @@ vim.keymap.set('n', '<leader>oa', "<cmd>lua require('nvim-autopairs').toggle()<c
 -----------------------------------
 -- AutoTyping
 -----------------------------------
+-- New Line
+vim.keymap.set('n', '<CR>', 'o<Esc>', { noremap = true, silent = true, desc = 'New underline' })
+
 -- Code Blocks
 vim.keymap.set('n', '<leader>acb', 'i```bash<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: bash' })
 vim.keymap.set('n', '<leader>acp', 'i```python<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: python' })

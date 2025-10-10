@@ -6,7 +6,7 @@ return {
       auto_attach = true,
     },
     separator = ' > ',
-    highlight = true,
+    -- highlight = true,
   },
   config = function(_, opts)
     require('nvim-navic').setup(opts)
