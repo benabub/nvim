@@ -81,6 +81,9 @@ end
 
 vim.keymap.set('n', '<leader>nn', '<Cmd>Navbuddy<CR>', { noremap = true, silent = true, desc = 'NavBuddy' })
 
+vim.keymap.set('n', '<A-j>', '<cmd>normal! <C-d><cr>', { noremap = true, silent = true, desc = 'Page down half screen' })
+vim.keymap.set('n', '<A-k>', '<cmd>normal! <C-u><cr>', { noremap = true, silent = true, desc = 'Page up half screen' })
+
 -----------------------------------
 -- Manipulations
 -----------------------------------
@@ -538,6 +541,7 @@ vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><cr><esc>', { noremap = true, sil
 -- Callouts
 vim.keymap.set('n', '<leader>aw', 'i>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
 vim.keymap.set('n', '<leader>at', 'i>[!tip] ', { noremap = true, silent = true, desc = 'Tip' })
+vim.keymap.set('n', '<leader>an', 'i>[!note] ', { noremap = true, silent = true, desc = 'Note' })
 vim.keymap.set('n', '<leader>ad', 'i>[!danger] ', { noremap = true, silent = true, desc = 'Danger' })
 vim.keymap.set('n', '<leader>aC', 'i>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
 vim.keymap.set('n', '<leader>ae', 'i>[!example] ', { noremap = true, silent = true, desc = 'Example' })
