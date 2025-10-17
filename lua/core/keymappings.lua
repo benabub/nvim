@@ -83,6 +83,8 @@ vim.keymap.set('n', '<leader>nn', '<Cmd>Navbuddy<CR>', { noremap = true, silent 
 
 vim.keymap.set('n', '<A-j>', '<cmd>normal! <C-d><cr>', { noremap = true, silent = true, desc = 'Page down half screen' })
 vim.keymap.set('n', '<A-k>', '<cmd>normal! <C-u><cr>', { noremap = true, silent = true, desc = 'Page up half screen' })
+vim.keymap.set('v', '<A-j>', '<cmd>normal! <C-d><cr>', { noremap = true, silent = true, desc = 'Page down half screen' })
+vim.keymap.set('v', '<A-k>', '<cmd>normal! <C-u><cr>', { noremap = true, silent = true, desc = 'Page up half screen' })
 
 -----------------------------------
 -- Manipulations
@@ -112,7 +114,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     -- def
-    map('<leader>ld', telescope.lsp_definitions, 'Goto Definition')
+    map('<leader>ld', vim.lsp.buf.definition, 'Goto Definition')
+
     -- declaration: where var declarated, but not defined
     map('<leader>lD', vim.lsp.buf.declaration, 'Goto Declaration')
     -- interface realization
@@ -137,7 +140,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- for LSP inlay hints only (doesn't work, if there is no such configuration)
     local client = vim.lsp.get_client_by_id(event.data.client_id)
-    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
       map('<leader>th', function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
       end, '[T]oggle Inlay [H]ints')
@@ -536,7 +539,7 @@ vim.keymap.set('n', '<leader>ach', 'i```hyprlang<cr><cr>```<cr><esc>kk', { norem
 
 -- Special
 vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true, desc = '> Sign' })
-vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><cr><esc>', { noremap = true, silent = true, desc = 'Line' })
+vim.keymap.set('n', '<leader>al', 'i<cr>---<cr>><esc>', { noremap = true, silent = true, desc = 'Line' })
 
 -- Callouts
 vim.keymap.set('n', '<leader>aw', 'i>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
