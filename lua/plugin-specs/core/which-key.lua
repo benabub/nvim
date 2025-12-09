@@ -59,6 +59,7 @@ return {
         { '<leader>v', group = 'Visual Selection' },
         { '<leader>a', group = 'AutoType' },
         { '<leader>ac', group = 'Code Blocks' },
+        { '<leader>ap', group = 'Python' },
         { '<leader>g', group = 'Git' },
         { '<leader>n', group = 'Navigation' },
         -- free:

@@ -81,10 +81,17 @@ end
 
 vim.keymap.set('n', '<leader>nn', '<Cmd>Navbuddy<CR>', { noremap = true, silent = true, desc = 'NavBuddy' })
 
-vim.keymap.set('n', '<A-j>', '<cmd>normal! <C-d><cr>', { noremap = true, silent = true, desc = 'Page down half screen' })
-vim.keymap.set('n', '<A-k>', '<cmd>normal! <C-u><cr>', { noremap = true, silent = true, desc = 'Page up half screen' })
-vim.keymap.set('v', '<A-j>', '<cmd>normal! <C-d><cr>', { noremap = true, silent = true, desc = 'Page down half screen' })
-vim.keymap.set('v', '<A-k>', '<cmd>normal! <C-u><cr>', { noremap = true, silent = true, desc = 'Page up half screen' })
+vim.keymap.set('n', '<A-j>', '<C-d>', { noremap = true, silent = true, desc = 'Page down half screen' })
+vim.keymap.set('n', '<A-k>', '<C-u>', { noremap = true, silent = true, desc = 'Page up half screen' })
+vim.keymap.set('v', '<A-j>', '<C-d>', { noremap = true, silent = true, desc = 'Page down half screen' })
+vim.keymap.set('v', '<A-k>', '<C-u>', { noremap = true, silent = true, desc = 'Page up half screen' })
+
+vim.keymap.set('n', '<leader>nb', '^', { noremap = true, silent = true, desc = 'Jump to the Begin of the Line' })
+vim.keymap.set('n', '<leader>nm', '$', { noremap = true, silent = true, desc = 'Jump to the End of the Line' })
+
+-- -- TODO: find command:
+-- vim.keymap.set('n', '] ', ']m', { noremap = true, silent = true, desc = 'Next method start' })
+-- vim.keymap.set('n', '[ ', '[m', { noremap = true, silent = true, desc = 'Previous method start' })
 
 -----------------------------------
 -- Manipulations
@@ -304,9 +311,11 @@ vim.keymap.set('n', 'fs', function()
 end, { noremap = true, silent = true, desc = 'Toggle comment until # -- above' })
 
 -----------------------------------
--- Visual Selection
+-- Visual Selection & Yank
 -----------------------------------
 vim.keymap.set('n', '<leader>vv', 'v$h', { noremap = true, silent = true, desc = 'Select to the end of the line' })
+vim.keymap.set('n', '<leader>vc', 'vt"', { noremap = true, silent = true, desc = 'Select to the double-quote' })
+vim.keymap.set('n', '<leader>vy', '^y$', { noremap = true, silent = true, desc = 'Yank line without indent' })
 
 -----------------------------------
 -- Move cursor in Insert mode
@@ -422,7 +431,7 @@ vim.keymap.set('n', '<leader>tt', "<cmd>lua require('FTerm').open()<cr>", { nore
 vim.keymap.set('t', '<esc>', "<cmd>lua require('FTerm').exit()<cr>", { noremap = true, silent = true, desc = 'Terminal Exit' })
 
 -----------------------------------
--- Keybinds to make split navigation easier.
+-- Keybinds to make split movement easier.
 -----------------------------------
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -539,14 +548,17 @@ vim.keymap.set('n', '<leader>ach', 'i```hyprlang<cr><cr>```<cr><esc>kk', { norem
 
 -- Special
 vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true, desc = '> Sign' })
-vim.keymap.set('n', '<leader>al', 'i<cr>---<cr>><esc>', { noremap = true, silent = true, desc = 'Line' })
+vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><esc>', { noremap = true, silent = true, desc = 'Line' })
 
 -- Callouts
-vim.keymap.set('n', '<leader>aw', 'i>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
-vim.keymap.set('n', '<leader>at', 'i>[!tip] ', { noremap = true, silent = true, desc = 'Tip' })
-vim.keymap.set('n', '<leader>an', 'i>[!note] ', { noremap = true, silent = true, desc = 'Note' })
-vim.keymap.set('n', '<leader>ad', 'i>[!danger] ', { noremap = true, silent = true, desc = 'Danger' })
-vim.keymap.set('n', '<leader>aC', 'i>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
-vim.keymap.set('n', '<leader>ae', 'i>[!example] ', { noremap = true, silent = true, desc = 'Example' })
-vim.keymap.set('n', '<leader>ab', 'i>[!bug] ', { noremap = true, silent = true, desc = 'Bug' })
-vim.keymap.set('n', '<leader>ac', 'i>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
+vim.keymap.set('n', '<leader>aw', 'a>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
+vim.keymap.set('n', '<leader>at', 'a>[!tip] ', { noremap = true, silent = true, desc = 'Tip' })
+vim.keymap.set('n', '<leader>an', 'a>[!note] ', { noremap = true, silent = true, desc = 'Note' })
+vim.keymap.set('n', '<leader>ad', 'a>[!danger] ', { noremap = true, silent = true, desc = 'Danger' })
+vim.keymap.set('n', '<leader>aC', 'a>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
+vim.keymap.set('n', '<leader>ae', 'a>[!example] ', { noremap = true, silent = true, desc = 'Example' })
+vim.keymap.set('n', '<leader>ab', 'a>[!bug] ', { noremap = true, silent = true, desc = 'Bug' })
+vim.keymap.set('n', '<leader>ac', 'a>[!caution] ', { noremap = true, silent = true, desc = 'Caution' })
+
+-- Python
+vim.keymap.set('n', '<leader>apd', 'Ir"""<cr><cr><esc>i"""<esc><up>', { noremap = true, silent = true, desc = 'r-DocString' })
