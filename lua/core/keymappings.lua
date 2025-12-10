@@ -549,6 +549,7 @@ vim.keymap.set('n', '<leader>ach', 'i```hyprlang<cr><cr>```<cr><esc>kk', { norem
 -- Special
 vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true, desc = '> Sign' })
 vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><esc>', { noremap = true, silent = true, desc = 'Line' })
+vim.keymap.set('n', '<leader>ai', 'A  # type: ignore<esc>', { noremap = true, silent = true, desc = '# type: ignore' })
 
 -- Callouts
 vim.keymap.set('n', '<leader>aw', 'a>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
