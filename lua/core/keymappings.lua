@@ -89,9 +89,8 @@ vim.keymap.set('v', '<A-k>', '<C-u>', { noremap = true, silent = true, desc = 'P
 vim.keymap.set('n', '<leader>nb', '^', { noremap = true, silent = true, desc = 'Jump to the Begin of the Line' })
 vim.keymap.set('n', '<leader>nm', '$', { noremap = true, silent = true, desc = 'Jump to the End of the Line' })
 
--- -- TODO: find command:
--- vim.keymap.set('n', '] ', ']m', { noremap = true, silent = true, desc = 'Next method start' })
--- vim.keymap.set('n', '[ ', '[m', { noremap = true, silent = true, desc = 'Previous method start' })
+vim.keymap.set('n', '] ', '/^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Next Separator' })
+vim.keymap.set('n', '[ ', '?^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Previous Separator' })
 
 -----------------------------------
 -- Manipulations
