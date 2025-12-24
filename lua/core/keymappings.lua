@@ -99,14 +99,16 @@ vim.keymap.set('n', '[ ', '?^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, s
 vim.keymap.set('n', '<leader>me', 'i(<Esc>A)<Esc>', { noremap = true, silent = true, desc = 'Surround with () to the end' })
 vim.keymap.set('n', '<leader>mc', 'i(<Esc>$i)<Esc>', { noremap = true, silent = true, desc = 'Surround with () to < : >' })
 
-vim.keymap.set('n', '<leader>mp', 'Iprint(<Esc>$A)<Esc>', { noremap = true, silent = true, desc = 'Move Line Into < print(*) >' })
-vim.keymap.set('n', '<leader>mm', '@1', { noremap = true, silent = true, desc = 'Macros 1 Exec' })
-
 -- Case under cursor Up | Down
 vim.keymap.set('n', '<leader>mj', 'vgu', { noremap = true, silent = true, desc = 'Letter Case Down' })
 vim.keymap.set('n', '<leader>mk', 'vgU', { noremap = true, silent = true, desc = 'Letter Case Up' })
 vim.keymap.set('n', '<leader>mJ', 'viwgu', { noremap = true, silent = true, desc = 'Word Case Down' })
 vim.keymap.set('n', '<leader>mK', 'viwgU', { noremap = true, silent = true, desc = 'Word Case Up' })
+
+-- Other
+vim.keymap.set('n', '<leader>mp', 'Iprint(<Esc>$A)<Esc>', { noremap = true, silent = true, desc = 'Move Line Into < print(*) >' })
+vim.keymap.set('n', '<leader>mm', '@1', { noremap = true, silent = true, desc = 'Macros 1 Exec' })
+vim.keymap.set('n', '<leader>ms', 'daW$a <Esc>px0', { noremap = true, silent = true, desc = 'Swap 2 words in 2 words line' })
 
 -----------------------------------
 -- LSP
@@ -166,6 +168,7 @@ vim.keymap.set('n', '<leader>sr', telescope.resume, { noremap = true, silent = t
 vim.keymap.set('n', '<leader>s.', telescope.oldfiles, { noremap = true, silent = true, desc = 'Search Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader>sb', telescope.buffers, { noremap = true, silent = true, desc = 'Find existing buffers' })
 vim.keymap.set('n', '<leader>sg', telescope.live_grep, { noremap = true, silent = true, desc = 'Live Grep in project' })
+vim.keymap.set('n', '<leader>so', telescope.oldfiles, { noremap = true, silent = true, desc = 'Old files' })
 
 vim.keymap.set(
   'n',
@@ -537,7 +540,7 @@ vim.keymap.set('n', '<leader>oa', "<cmd>lua require('nvim-autopairs').toggle()<c
 -- AutoTyping
 -----------------------------------
 -- New Line
-vim.keymap.set('n', '<CR>', 'o<Esc>', { noremap = true, silent = true, desc = 'New underline' })
+vim.keymap.set('n', '<S-CR>', 'o<Esc>', { noremap = true, silent = true, desc = 'New underline' })
 
 -- Code Blocks
 vim.keymap.set('n', '<leader>acb', 'i```bash<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: bash' })
@@ -549,6 +552,7 @@ vim.keymap.set('n', '<leader>ach', 'i```hyprlang<cr><cr>```<cr><esc>kk', { norem
 vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true, desc = '> Sign' })
 vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><esc>', { noremap = true, silent = true, desc = 'Line' })
 vim.keymap.set('n', '<leader>ai', 'A  # type: ignore<esc>', { noremap = true, silent = true, desc = '# type: ignore' })
+vim.keymap.set('n', '<leader>aT', 'I# TODO: ', { noremap = true, silent = true, desc = '# TODO:' })
 
 -- Callouts
 vim.keymap.set('n', '<leader>aw', 'a>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
