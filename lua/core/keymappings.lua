@@ -68,6 +68,9 @@ vim.keymap.set('n', '<leader>ww', ':w<CR>', { noremap = true, silent = true, des
 -- Tabs
 vim.keymap.set('n', '<S-h>', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true, desc = 'Previous Buffer' })
 vim.keymap.set('n', '<S-l>', '<Cmd>BufferNext<CR>', { noremap = true, silent = true, desc = 'Next Buffer' })
+vim.keymap.set('n', '<A-h>', '<Cmd>BufferMovePrevious<CR>', { noremap = true, silent = true, desc = 'Move Buffer left' })
+vim.keymap.set('n', '<A-l>', '<Cmd>BufferMoveNext<CR>', { noremap = true, silent = true, desc = 'Move Buffer right' })
+
 -- Generate map for buffers 1-9 with loop
 for i = 1, 9 do
   vim.keymap.set('n', '<A-' .. i .. '>', function()
