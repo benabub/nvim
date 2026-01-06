@@ -319,8 +319,11 @@ end, { noremap = true, silent = true, desc = 'Toggle comment until # -- above' }
 -- Visual Selection & Yank
 -----------------------------------
 vim.keymap.set('n', '<leader>vv', 'v$h', { noremap = true, silent = true, desc = 'Select to the end of the line' })
-vim.keymap.set('n', '<leader>vc', 'vt"', { noremap = true, silent = true, desc = 'Select to the double-quote' })
+-- vim.keymap.set('n', '<leader>vc', 'vt"', { noremap = true, silent = true, desc = 'Select to the double-quote' })
 vim.keymap.set('n', '<leader>vy', '^y$', { noremap = true, silent = true, desc = 'Yank line without indent' })
+vim.keymap.set('n', '<leader>vc', 'ct_', { noremap = true, silent = true, desc = 'Change to the _' })
+vim.keymap.set('n', '<leader>vc', 'ct,', { noremap = true, silent = true, desc = 'Change to the ,' })
+vim.keymap.set('n', '<leader>vc', 'ct.', { noremap = true, silent = true, desc = 'Change to the .' })
 
 -----------------------------------
 -- Move cursor in Insert mode
