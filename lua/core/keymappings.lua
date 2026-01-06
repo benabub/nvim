@@ -559,6 +559,7 @@ vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true
 vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><esc>', { noremap = true, silent = true, desc = 'Line' })
 vim.keymap.set('n', '<leader>ai', 'A  # type: ignore<esc>', { noremap = true, silent = true, desc = '# type: ignore' })
 vim.keymap.set('n', '<leader>aT', 'I# TODO: ', { noremap = true, silent = true, desc = '# TODO:' })
+vim.keymap.set('n', '<leader>ar', 'or"""<cr><cr>"""<cr><esc>', { noremap = true, silent = true, desc = 'Raw Quote Block' })
 
 -- Callouts
 vim.keymap.set('n', '<leader>aw', 'a>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
