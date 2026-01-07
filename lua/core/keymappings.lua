@@ -322,8 +322,8 @@ vim.keymap.set('n', '<leader>vv', 'v$h', { noremap = true, silent = true, desc =
 -- vim.keymap.set('n', '<leader>vc', 'vt"', { noremap = true, silent = true, desc = 'Select to the double-quote' })
 vim.keymap.set('n', '<leader>vy', '^y$', { noremap = true, silent = true, desc = 'Yank line without indent' })
 vim.keymap.set('n', '<leader>vc', 'ct_', { noremap = true, silent = true, desc = 'Change to the _' })
-vim.keymap.set('n', '<leader>vc', 'ct,', { noremap = true, silent = true, desc = 'Change to the ,' })
-vim.keymap.set('n', '<leader>vc', 'ct.', { noremap = true, silent = true, desc = 'Change to the .' })
+vim.keymap.set('n', '<leader>vx', 'ct,', { noremap = true, silent = true, desc = 'Change to the ,' })
+vim.keymap.set('n', '<leader>vz', 'ct.', { noremap = true, silent = true, desc = 'Change to the .' })
 
 -----------------------------------
 -- Move cursor in Insert mode
@@ -559,7 +559,7 @@ vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true
 vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><esc>', { noremap = true, silent = true, desc = 'Line' })
 vim.keymap.set('n', '<leader>ai', 'A  # type: ignore<esc>', { noremap = true, silent = true, desc = '# type: ignore' })
 vim.keymap.set('n', '<leader>aT', 'I# TODO: ', { noremap = true, silent = true, desc = '# TODO:' })
-vim.keymap.set('n', '<leader>ar', 'or"""<cr><cr>"""<cr><esc>', { noremap = true, silent = true, desc = 'Raw Quote Block' })
+vim.keymap.set('n', '<leader>ar', 'o<esc>Ir"""<cr><cr>"""<cr><esc>', { noremap = true, silent = true, desc = 'Raw Quote Block' })
 
 -- Callouts
 vim.keymap.set('n', '<leader>aw', 'a>[!warning] ', { noremap = true, silent = true, desc = 'Warning' })
