@@ -558,7 +558,7 @@ vim.keymap.set('n', '<leader>ach', 'i```hyprlang<cr><cr>```<cr><esc>kk', { norem
 vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true, desc = '> Sign' })
 vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><esc>', { noremap = true, silent = true, desc = 'Line' })
 vim.keymap.set('n', '<leader>ai', 'A  # type: ignore<esc>', { noremap = true, silent = true, desc = '# type: ignore' })
-vim.keymap.set('n', '<leader>aT', 'I# TODO: ', { noremap = true, silent = true, desc = '# TODO:' })
+vim.keymap.set('n', '<leader>aT', 'o<esc>I# TODO: ', { noremap = true, silent = true, desc = '# TODO:' })
 vim.keymap.set('n', '<leader>ar', 'o<esc>Ir"""<cr><cr>"""<cr><esc>', { noremap = true, silent = true, desc = 'Raw Quote Block' })
 
 -- Callouts
