@@ -469,8 +469,8 @@ end, { noremap = true, silent = true, desc = 'Debug: Set Named Breakpoint' })
 -----------------------------------
 -- Debugging
 -----------------------------------
-vim.keymap.set('n', '<leader>dd', dap.continue, { noremap = true, silent = true, desc = 'Debug: Start/Continue' })
-vim.keymap.set('n', '<leader>di', dap.step_into, { noremap = true, silent = true, desc = 'Debug: Step Into Function' })
+vim.keymap.set('n', '<leader>di', dap.continue, { noremap = true, silent = true, desc = 'Debug: Start/Continue' })
+vim.keymap.set('n', '<leader>dd', dap.step_into, { noremap = true, silent = true, desc = 'Debug: Step Into Function' })
 vim.keymap.set('n', '<leader>do', dap.step_out, { noremap = true, silent = true, desc = 'Debug: Step Out Function' })
 vim.keymap.set('n', '<leader>dj', dap.step_over, { noremap = true, silent = true, desc = 'Debug: Jump Over Function' })
 
@@ -556,7 +556,7 @@ vim.keymap.set('n', '<leader>ach', 'i```hyprlang<cr><cr>```<cr><esc>kk', { norem
 
 -- Special
 vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true, desc = '> Sign' })
-vim.keymap.set('n', '<leader>al', 'i<cr>---<cr><esc>', { noremap = true, silent = true, desc = 'Line' })
+vim.keymap.set('n', '<leader>al', 'o<cr>---<cr><cr><esc>', { noremap = true, silent = true, desc = 'Line' })
 vim.keymap.set('n', '<leader>ai', 'A  # type: ignore<esc>', { noremap = true, silent = true, desc = '# type: ignore' })
 vim.keymap.set('n', '<leader>aT', 'o<esc>I# TODO: ', { noremap = true, silent = true, desc = '# TODO:' })
 vim.keymap.set('n', '<leader>ar', 'o<esc>Ir"""<cr><cr>"""<cr><esc>', { noremap = true, silent = true, desc = 'Raw Quote Block' })
