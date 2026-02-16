@@ -316,7 +316,7 @@ vim.keymap.set('n', 'fs', function()
 end, { noremap = true, silent = true, desc = 'Toggle comment until # -- above' })
 
 -----------------------------------
--- Visual Selection & Yank
+-- Visual Selection to & Yank to & Delete to & Replace to
 -----------------------------------
 vim.keymap.set('n', '<leader>vv', 'v$h', { noremap = true, silent = true, desc = 'Select to the end of the line' })
 -- vim.keymap.set('n', '<leader>vc', 'vt"', { noremap = true, silent = true, desc = 'Select to the double-quote' })
@@ -324,6 +324,8 @@ vim.keymap.set('n', '<leader>vy', '^y$', { noremap = true, silent = true, desc =
 vim.keymap.set('n', '<leader>vc', 'ct_', { noremap = true, silent = true, desc = 'Change to the _' })
 vim.keymap.set('n', '<leader>vx', 'ct,', { noremap = true, silent = true, desc = 'Change to the ,' })
 vim.keymap.set('n', '<leader>vz', 'ct.', { noremap = true, silent = true, desc = 'Change to the .' })
+vim.keymap.set('n', '<leader>vj', 'd/[]})]<cr>', { noremap = true, silent = true, desc = 'Delete forward to bracket' })
+vim.keymap.set('n', '<leader>vh', 'ld?[[({]?s+1<cr>h', { noremap = true, silent = true, desc = 'Delete back to bracket' })
 
 -----------------------------------
 -- Move cursor in Insert mode
