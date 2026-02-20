@@ -79,7 +79,7 @@ for i = 1, 9 do
 end
 
 -----------------------------------
--- Navigation
+-- Navigation | Jumps
 -----------------------------------
 
 vim.keymap.set('n', '<leader>nn', '<Cmd>Navbuddy<CR>', { noremap = true, silent = true, desc = 'NavBuddy' })
@@ -89,8 +89,8 @@ vim.keymap.set('n', '<A-k>', '<C-u>', { noremap = true, silent = true, desc = 'P
 vim.keymap.set('v', '<A-j>', '<C-d>', { noremap = true, silent = true, desc = 'Page down half screen' })
 vim.keymap.set('v', '<A-k>', '<C-u>', { noremap = true, silent = true, desc = 'Page up half screen' })
 
-vim.keymap.set('n', '<leader>nb', '^', { noremap = true, silent = true, desc = 'Jump to the Begin of the Line' })
-vim.keymap.set('n', '<leader>nm', '$', { noremap = true, silent = true, desc = 'Jump to the End of the Line' })
+vim.keymap.set('n', '<leader>jj', '^', { noremap = true, silent = true, desc = 'Jump to the Begin of the Line' })
+vim.keymap.set('n', '<leader>jk', '$', { noremap = true, silent = true, desc = 'Jump to the End of the Line' })
 
 vim.keymap.set('n', '] ', '/^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Next Separator' })
 vim.keymap.set('n', '[ ', '?^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Previous Separator' })
