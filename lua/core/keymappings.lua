@@ -89,8 +89,8 @@ vim.keymap.set('n', '<A-k>', '<C-u>', { noremap = true, silent = true, desc = 'P
 vim.keymap.set('v', '<A-j>', '<C-d>', { noremap = true, silent = true, desc = 'Page down half screen' })
 vim.keymap.set('v', '<A-k>', '<C-u>', { noremap = true, silent = true, desc = 'Page up half screen' })
 
-vim.keymap.set('n', '<leader>jj', '^', { noremap = true, silent = true, desc = 'Jump to the Begin of the Line' })
-vim.keymap.set('n', '<leader>jk', '$', { noremap = true, silent = true, desc = 'Jump to the End of the Line' })
+vim.keymap.set('n', '<leader>j', '^', { noremap = true, silent = true, desc = 'Jump to the Begin of the Line' })
+vim.keymap.set('n', '<leader>k', '$', { noremap = true, silent = true, desc = 'Jump to the End of the Line' })
 
 vim.keymap.set('n', '] ', '/^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Next Separator' })
 vim.keymap.set('n', '[ ', '?^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Previous Separator' })
@@ -555,6 +555,7 @@ vim.keymap.set('n', '<leader>acb', 'i```bash<cr><cr>```<cr><esc>kk', { noremap =
 vim.keymap.set('n', '<leader>acp', 'i```python<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: python' })
 vim.keymap.set('n', '<leader>acl', 'i```lua<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: lua' })
 vim.keymap.set('n', '<leader>ach', 'i```hyprlang<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: hyprlang' })
+vim.keymap.set('n', '<leader>acm', 'i```md<cr><cr>```<cr><esc>kk', { noremap = true, silent = true, desc = 'Code Block: markdown' })
 
 -- Special
 vim.keymap.set('n', '<leader>a>', 'i><cr><esc>', { noremap = true, silent = true, desc = '> Sign' })
