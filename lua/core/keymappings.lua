@@ -324,8 +324,8 @@ vim.keymap.set('n', '<leader>vy', '^y$', { noremap = true, silent = true, desc =
 vim.keymap.set('n', '<leader>vc', 'ct_', { noremap = true, silent = true, desc = 'Change to the _' })
 vim.keymap.set('n', '<leader>vx', 'ct,', { noremap = true, silent = true, desc = 'Change to the ,' })
 vim.keymap.set('n', '<leader>vz', 'ct.', { noremap = true, silent = true, desc = 'Change to the .' })
-vim.keymap.set('n', '<leader>vj', 'd/[]})]<cr>', { noremap = true, silent = true, desc = 'Delete forward to bracket' })
-vim.keymap.set('n', '<leader>vh', 'ld?[[({]?s+1<cr>h', { noremap = true, silent = true, desc = 'Delete back to bracket' })
+vim.keymap.set('n', '<leader>vj', 'd/[]})]<cr>i<cmd>nohlsearch<cr>', { noremap = true, silent = true, desc = 'Replace forward to bracket' })
+vim.keymap.set('n', '<leader>vh', 'ld?[[({]?s+1<cr>ha<cmd>nohlsearch<cr>', { noremap = true, silent = true, desc = 'Replace back to bracket' })
 
 -----------------------------------
 -- Move cursor in Insert mode
