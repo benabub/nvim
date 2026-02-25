@@ -85,3 +85,12 @@ vim.api.nvim_create_autocmd('BufDelete', { -- init: buffer deletion
     end, 10) -- delay
   end,
 })
+
+-- Disable autocommenting new lines
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = '*',
+  desc = 'Disable auto commenting on new lines',
+  callback = function()
+    vim.opt.formatoptions:remove { 'c', 'r', 'o' }
+  end,
+})
