@@ -95,6 +95,13 @@ vim.keymap.set('n', '<leader>k', '$', { noremap = true, silent = true, desc = 'J
 vim.keymap.set('n', '] ', '/^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Next Separator' })
 vim.keymap.set('n', '[ ', '?^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Previous Separator' })
 
+vim.keymap.set('n', '<C-]>', function()
+  vim.fn.search([[\v^\s*(function|def |class |fn |impl |mod )]], 'W')
+end, { noremap = true, silent = true, desc = 'Jump to Next Method' })
+vim.keymap.set('n', '<C-[>', function()
+  vim.fn.search([[\v^\s*(function|def |class |fn |impl |mod )]], 'bW')
+end, { noremap = true, silent = true, desc = 'Jump to Previous Method' })
+
 -----------------------------------
 -- Manipulations
 -----------------------------------
