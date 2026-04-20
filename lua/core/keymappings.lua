@@ -409,7 +409,7 @@ vim.keymap.set('n', '<leader>gB', ':GitBlameToggle<CR>', { noremap = true, silen
 vim.keymap.set('n', '<leader>gp', gitsigns.preview_hunk, { noremap = true, silent = true, desc = 'Git Preview Hunk' })
 
 -- Show Deleted
-vim.keymap.set('n', '<leader>gx', gitsigns.toggle_deleted, { noremap = true, silent = true, desc = 'Toggle Git Show Deleted' })
+vim.keymap.set('n', '<leader>gx', gitsigns.preview_hunk_inline, { noremap = true, silent = true, desc = 'Toggle Git Show Deleted' })
 
 -- Diff mode
 vim.keymap.set('n', '<leader>gd', gitsigns.diffthis, { noremap = true, silent = true, desc = 'Git Diff Against Index' })
