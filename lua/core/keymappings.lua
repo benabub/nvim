@@ -59,7 +59,24 @@ vim.keymap.set('n', 'gx', '<plug>(openbrowser-smart-search)', { noremap = true, 
 -----------------------------------------------------------
 -- Close
 vim.keymap.set('n', '<leader>wq', ':w<CR>:bd<CR>', { noremap = true, silent = true, desc = 'Save and Close Buffer' })
-vim.keymap.set('n', '<leader>`', ':silent! bd!<CR>', { noremap = true, silent = true, desc = 'Close without Saving' })
+vim.keymap.set('n', '<leader>`', function()
+  local current_buf = vim.api.nvim_get_current_buf()
+
+  -- Получаем список всех "нормальных" буферов (которые отображаются в списке)
+  local listed_buffers = vim.fn.getbufinfo { buflisted = 1 }
+
+  if #listed_buffers <= 1 then
+    -- Если остался один буфер (или ноль), просто выходим из nvim
+    vim.cmd 'confirm qall'
+  else
+    -- Если есть другие буферы:
+    vim.cmd 'bprevious'
+    -- Проверяем, существует ли еще буфер перед удалением (защита от ошибок)
+    if vim.api.nvim_buf_is_valid(current_buf) then
+      vim.api.nvim_buf_delete(current_buf, { force = true })
+    end
+  end
+end, { desc = 'Close Buffer or Quit' })
 
 -- Save
 vim.keymap.set('n', '<leader><leader>', ':w<CR>', { noremap = true, silent = true, desc = 'Save Buffer' })
@@ -330,7 +347,10 @@ vim.keymap.set('n', '<leader>vv', 'v$h', { noremap = true, silent = true, desc =
 vim.keymap.set('n', '<leader>vy', '^y$', { noremap = true, silent = true, desc = 'Yank line without indent' })
 vim.keymap.set('n', '<leader>vc', 'ct_', { noremap = true, silent = true, desc = 'Change to the _' })
 vim.keymap.set('n', '<leader>vx', 'ct,', { noremap = true, silent = true, desc = 'Change to the ,' })
-vim.keymap.set('n', '<leader>vz', 'ct.', { noremap = true, silent = true, desc = 'Change to the .' })
+
+-- vim.keymap.set('n', '<leader>vz', 'ct.', { noremap = true, silent = true, desc = 'Change to the .' })
+vim.keymap.set('n', '<leader>vz', '^ct.', { noremap = true, silent = true, desc = 'Jump to the Begin & Change to the .' })
+
 vim.keymap.set('n', '<leader>vj', 'd/[]})]<cr>i<cmd>nohlsearch<cr>', { noremap = true, silent = true, desc = 'Replace forward to bracket' })
 vim.keymap.set('n', '<leader>vh', 'ld?[[({]?s+1<cr>ha<cmd>nohlsearch<cr>', { noremap = true, silent = true, desc = 'Replace back to bracket' })
 
