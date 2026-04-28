@@ -137,6 +137,9 @@ vim.keymap.set('n', '<leader>mp', 'Iprint(<Esc>$A)<Esc>', { noremap = true, sile
 vim.keymap.set('n', '<leader>mm', '@1', { noremap = true, silent = true, desc = 'Macros 1 Exec' })
 vim.keymap.set('n', '<leader>ms', 'daW$a <Esc>px0', { noremap = true, silent = true, desc = 'Swap 2 words in 2 words line' })
 
+-- Paste
+vim.keymap.set('x', 'p', 'P', { noremap = true, silent = true, desc = 'Paste without overwriting register' })
+
 -----------------------------------
 -- LSP
 -----------------------------------
