@@ -522,6 +522,10 @@ vim.keymap.set('n', '<leader>d?', function()
   widgets.centered_float(widgets.scopes)
 end, { noremap = true, silent = true, desc = 'Debug: Show All Variables of Scope' })
 
+vim.keymap.set('n', '<leader>dm', function()
+  vim.cmd "enew | put =execute('messages')"
+end, { desc = 'Open Error Messages' })
+
 -----------------------------------
 -- Harpoon
 -----------------------------------
