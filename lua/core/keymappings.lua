@@ -132,13 +132,92 @@ vim.keymap.set('n', '<leader>mk', 'vgU', { noremap = true, silent = true, desc =
 vim.keymap.set('n', '<leader>mJ', 'viwgu', { noremap = true, silent = true, desc = 'Word Case Down' })
 vim.keymap.set('n', '<leader>mK', 'viwgU', { noremap = true, silent = true, desc = 'Word Case Up' })
 
+-- Paste
+vim.keymap.set('x', 'p', 'P', { noremap = true, silent = true, desc = 'Paste without overwriting register' })
+
 -- Other
 vim.keymap.set('n', '<leader>mp', 'Iprint(<Esc>$A)<Esc>', { noremap = true, silent = true, desc = 'Move Line Into < print(*) >' })
 vim.keymap.set('n', '<leader>mm', '@1', { noremap = true, silent = true, desc = 'Macros 1 Exec' })
 vim.keymap.set('n', '<leader>ms', 'daW$a <Esc>px0', { noremap = true, silent = true, desc = 'Swap 2 words in 2 words line' })
 
--- Paste
-vim.keymap.set('x', 'p', 'P', { noremap = true, silent = true, desc = 'Paste without overwriting register' })
+-- Docs Format
+vim.keymap.set('v', '<leader>md', function()
+  local start_line = vim.fn.line 'v'
+  local end_line = vim.fn.line '.'
+  if start_line > end_line then
+    start_line, end_line = end_line, start_line
+  end
+
+  -- Get the original text
+  local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+
+  -- Exit visual mode
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<ESC>', true, false, true), 'n', true)
+
+  -- Word wrap function to format text within a 75-character limit
+  local function wrap_text(text, limit)
+    local result = {}
+    local current_line = ''
+    for word in text:gmatch '%S+' do
+      if #current_line == 0 then
+        current_line = word
+      elseif #current_line + 1 + #word <= limit then
+        current_line = current_line .. ' ' .. word
+      else
+        table.insert(result, current_line)
+        current_line = word
+      end
+    end
+    if #current_line > 0 then
+      table.insert(result, current_line)
+    end
+    return result
+  end
+
+  -- Group lines into paragraphs for proper word wrapping
+  local paragraphs = {}
+  local current_para = {}
+
+  for _, line in ipairs(lines) do
+    local is_empty = (line:gsub('%s+', '') == '')
+    local is_example = line:match '^%s*Example'
+
+    if is_example then
+      if #current_para > 0 then
+        table.insert(paragraphs, { type = 'text', content = table.concat(current_para, ' ') })
+        current_para = {}
+      end
+      table.insert(paragraphs, { type = 'example_marker' })
+      table.insert(current_para, line)
+    elseif is_empty then
+      if #current_para > 0 then
+        table.insert(paragraphs, { type = 'text', content = table.concat(current_para, ' ') })
+        current_para = {}
+      end
+    else
+      table.insert(current_para, line)
+    end
+  end
+  if #current_para > 0 then
+    table.insert(paragraphs, { type = 'text', content = table.concat(current_para, ' ') })
+  end
+
+  -- Construct final lines with a 4-space indent
+  local final_lines = {}
+  for _, para in ipairs(paragraphs) do
+    if para.type == 'example_marker' then
+      table.insert(final_lines, '') -- Empty line strictly before Example
+    else
+      local wrapped = wrap_text(para.content, 75)
+      for _, w_line in ipairs(wrapped) do
+        table.insert(final_lines, '    ' .. w_line) -- 4-space indent
+      end
+    end
+  end
+
+  -- Replace the old text with the fully formatted new text
+  vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, final_lines)
+end, { desc = 'Format LeetCode Description' })
 
 -----------------------------------
 -- LSP
