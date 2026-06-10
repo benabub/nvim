@@ -272,7 +272,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -----------------------------------
 vim.keymap.set('n', '<leader>sh', telescope.help_tags, { noremap = true, silent = true, desc = 'Search Help' })
 vim.keymap.set('n', '<leader>sk', telescope.keymaps, { noremap = true, silent = true, desc = 'Search Keymaps' })
-vim.keymap.set('n', '<leader>sf', telescope.find_files, { noremap = true, silent = true, desc = 'Search Files' })
+vim.keymap.set('n', '<leader>sf', function()
+  telescope.find_files { hidden = true }
+end, { noremap = true, silent = true, desc = 'Search Files' })
 vim.keymap.set('n', '<leader>ss', telescope.builtin, { noremap = true, silent = true, desc = 'Search Telescope Function' })
 vim.keymap.set('n', '<leader>sw', telescope.grep_string, { noremap = true, silent = true, desc = 'Search current Word' })
 vim.keymap.set('n', '<leader>sr', telescope.resume, { noremap = true, silent = true, desc = 'Search Resume' })
