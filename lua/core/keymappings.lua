@@ -114,6 +114,8 @@ vim.keymap.set('n', '[ ', '?^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, s
 vim.keymap.set('x', '] ', '/^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Next Separator' })
 vim.keymap.set('x', '[ ', '?^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Previous Separator' })
 
+vim.keymap.set('n', ']q', '/PRE-CYCLE<CR>', { noremap = true, silent = true, desc = 'Jump to the PRE-CYCLE' })
+
 vim.keymap.set('n', '<C-]>', function()
   vim.fn.search([[\v^\s*(function|def |class |fn |impl |mod )]], 'W')
 end, { noremap = true, silent = true, desc = 'Jump to Next Method' })
