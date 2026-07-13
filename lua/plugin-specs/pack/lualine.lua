@@ -46,25 +46,28 @@ return {
           end,
         },
       },
-      lualine_x = {
-        {
-          'filename',
-          file_status = true,
-          path = 1,
-          -- 1: Relative path
-          -- 2: Absolute path
-          -- 3: Absolute path, with tilde as the home directory
-          -- 4: Filename and parent dir, with tilde as the home directory
-          symbols = {
-            modified = '[+]', -- Text to show when the file is modified.
-            readonly = '[-]', -- Text to show when the file is non-modifiable or readonly.
-          },
-        },
-        'filetype',
-      },
+
+      -- lualine_x = {
+      --   {
+      --     'filename',
+      --     file_status = true,
+      --     path = 1,
+      --     -- 1: Relative path
+      --     -- 2: Absolute path
+      --     -- 3: Absolute path, with tilde as the home directory
+      --     -- 4: Filename and parent dir, with tilde as the home directory
+      --     symbols = {
+      --       modified = '[+]', -- Text to show when the file is modified.
+      --       readonly = '[-]', -- Text to show when the file is non-modifiable or readonly.
+      --     },
+      --   },
+      --   'filetype',
+      -- },
+
       -- deepseek:
       lualine_y = { 'progress' },
       lualine_z = { 'location' },
+
       -- before deepseek:
       -- lualine_y = {}, -- Hide: right: [%]
       -- lualine_z = {}, -- Hide: right: [lines]
