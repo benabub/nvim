@@ -1,3 +1,4 @@
+# TODO: deprecated
 return {
   'LintaoAmons/bookmarks.nvim',
   -- pin the plugin at specific version for stability
