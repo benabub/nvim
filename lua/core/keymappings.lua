@@ -114,6 +114,7 @@ vim.keymap.set('n', '[ ', '?^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, s
 vim.keymap.set('x', '] ', '/^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Next Separator' })
 vim.keymap.set('x', '[ ', '?^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Previous Separator' })
 
+vim.keymap.set('n', ']t', '/Task_t(<CR>', { noremap = true, silent = true, desc = 'Jump to the Task_t(' })
 vim.keymap.set('n', ']q', '/ALGORITHM CYCLE<CR>', { noremap = true, silent = true, desc = 'Jump to the ALGORITHM CYCLE' })
 vim.keymap.set('n', ']y', '/youtube<CR>', { noremap = true, silent = true, desc = 'Jump to the youtube' })
 vim.keymap.set('n', ']r', '/rtn<CR>', { noremap = true, silent = true, desc = 'Jump to the rtn' })
