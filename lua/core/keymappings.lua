@@ -115,6 +115,8 @@ vim.keymap.set('x', '] ', '/^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, s
 vim.keymap.set('x', '[ ', '?^#\\s*[=-]\\{3,}\\|^---\\+<CR>', { noremap = true, silent = true, desc = 'Jump to the Previous Separator' })
 
 vim.keymap.set('n', ']q', '/PRE-CYCLE<CR>', { noremap = true, silent = true, desc = 'Jump to the PRE-CYCLE' })
+vim.keymap.set('n', ']y', '/youtube<CR>', { noremap = true, silent = true, desc = 'Jump to the youtube' })
+vim.keymap.set('n', ']r', '/rtn<CR>', { noremap = true, silent = true, desc = 'Jump to the rtn' })
 
 vim.keymap.set('n', '<C-]>', function()
   vim.fn.search([[\v^\s*(function|def |class |fn |impl |mod )]], 'W')
@@ -522,14 +524,16 @@ vim.keymap.set('n', '<leader>M', ':Mason<CR>', { noremap = true, silent = true, 
 -----------------------------------
 -- Bookmarks
 -----------------------------------
-vim.keymap.set({ 'n', 'v' }, 'mm', '<cmd>BookmarksMark<cr>', { noremap = true, silent = true, desc = 'Mark current line into active BookmarkList.' })
-vim.keymap.set({ 'n', 'v' }, 'mo', '<cmd>BookmarksGoto<cr>', { noremap = true, silent = true, desc = 'Go to bookmark at current active BookmarkList' })
-vim.keymap.set({ 'n', 'v' }, 'm1', '<cmd>BookmarksGotoPrev<cr>', { noremap = true, silent = true, desc = 'Go to next bookmark in line number order' })
-vim.keymap.set({ 'n', 'v' }, 'm2', '<cmd>BookmarksGotoNext<cr>', { noremap = true, silent = true, desc = 'Go to previous bookmark in line number order' })
 
-vim.keymap.set({ 'n', 'v' }, 'md', function()
-  require('bookmarks.commands').delete_mark_of_current_file()
-end, { noremap = true, silent = true, desc = 'Clear All Bookmark in File' })
+vim.keymap.set({ 'n', 'v' }, 'mm', '<cmd>Marko<cr>', { noremap = true, silent = true, desc = 'BookMarks PopUp' })
+
+-- vim.keymap.set({ 'n', 'v' }, 'mm', '<cmd>BookmarksMark<cr>', { noremap = true, silent = true, desc = 'Mark current line into active BookmarkList.' })
+-- vim.keymap.set({ 'n', 'v' }, 'mo', '<cmd>BookmarksGoto<cr>', { noremap = true, silent = true, desc = 'Go to bookmark at current active BookmarkList' })
+-- vim.keymap.set({ 'n', 'v' }, 'm1', '<cmd>BookmarksGotoPrev<cr>', { noremap = true, silent = true, desc = 'Go to next bookmark in line number order' })
+-- vim.keymap.set({ 'n', 'v' }, 'm2', '<cmd>BookmarksGotoNext<cr>', { noremap = true, silent = true, desc = 'Go to previous bookmark in line number order' })
+-- vim.keymap.set({ 'n', 'v' }, 'md', function()
+--   require('bookmarks.commands').delete_mark_of_current_file()
+-- end, { noremap = true, silent = true, desc = 'Clear All Bookmark in File' })
 
 -----------------------------------
 -- Copilot
