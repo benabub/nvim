@@ -538,7 +538,26 @@ vim.keymap.set('n', '<leader>r', function()
   end
 end, { noremap = true, silent = true, desc = 'Run Current File (auto type)' })
 
-vim.keymap.set('n', '<Leader>R', '<cmd>Run<cr>', { noremap = true, silent = true, desc = 'Run with CodeRunner (Console stays)' })
+-- vim.keymap.set('n', '<Leader>R', '<cmd>Run<cr>', { noremap = true, silent = true, desc = 'Run with CodeRunner (Console stays)' })
+--
+
+vim.keymap.set('n', '<leader>R', function()
+  local file = vim.fn.expand '%'
+  local ft = vim.bo.filetype
+
+  local commands = {
+    python = 'python3 -u ' .. file,
+    lua = 'lua ' .. file,
+  }
+
+  local cmd = commands[ft]
+  if cmd then
+    vim.cmd('tabnew | terminal ' .. cmd)
+    vim.cmd 'wincmd p'
+  else
+    print('No runner for: ' .. ft)
+  end
+end, { noremap = true, silent = true, desc = 'Run in tab' })
 
 -----------------------------------
 -- Mason & Lazy fast
