@@ -513,8 +513,32 @@ end, { noremap = true, silent = true, desc = 'Git Diff Against Last Commit' })
 -----------------------------------
 -- Code run
 -----------------------------------
-vim.keymap.set('n', '<leader>rr', ':!python %<CR>', { noremap = true, silent = true, desc = 'Run Current Python file' })
-vim.keymap.set('n', '<Leader>rc', '<cmd>Run<cr>', { noremap = true, silent = true, desc = 'Run with CodeRunner (Console stays)' })
+
+vim.keymap.set('n', '<leader>r', function()
+  local file = vim.fn.expand '%'
+  local ft = vim.bo.filetype
+
+  local commands = {
+    python = 'python3 -u ' .. file,
+    lua = 'lua ' .. file,
+    bash = 'bash ' .. file,
+    sh = 'bash ' .. file,
+    javascript = 'node ' .. file,
+    go = 'go run ' .. file,
+    rust = 'cargo run --bin ' .. file:match('([^/]+)$'):gsub('%.rs$', ''),
+    c = string.format('gcc %s -o /tmp/out && /tmp/out', file),
+    cpp = string.format('g++ %s -o /tmp/out && /tmp/out', file),
+  }
+
+  local cmd = commands[ft]
+  if cmd then
+    vim.cmd('!' .. cmd)
+  else
+    print('No runner for filetype: ' .. ft)
+  end
+end, { noremap = true, silent = true, desc = 'Run Current File (auto type)' })
+
+vim.keymap.set('n', '<Leader>R', '<cmd>Run<cr>', { noremap = true, silent = true, desc = 'Run with CodeRunner (Console stays)' })
 
 -----------------------------------
 -- Mason & Lazy fast
