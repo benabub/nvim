@@ -55,11 +55,18 @@ return {
         --   },
         -- },
         -- pickers = {}
+
+        -- ========================
+
         defaults = {
           mappings = {
             i = {
               ['<C-j>'] = require('telescope.actions').move_selection_next,
               ['<C-k>'] = require('telescope.actions').move_selection_previous,
+              ['<CR>'] = function(prompt_bufnr)
+                require('telescope.actions').select_default(prompt_bufnr)
+                vim.cmd 'stopinsert'
+              end,
             },
             n = {
               ['<C-j>'] = require('telescope.actions').move_selection_next,
@@ -67,11 +74,26 @@ return {
             },
           },
         },
-        extensions = {
-          ['ui-select'] = {
-            require('telescope.themes').get_dropdown(),
-          },
-        },
+
+        -- defaults = {
+        --   mappings = {
+        --     i = {
+        --       ['<C-j>'] = require('telescope.actions').move_selection_next,
+        --       ['<C-k>'] = require('telescope.actions').move_selection_previous,
+        --     },
+        --     n = {
+        --       ['<C-j>'] = require('telescope.actions').move_selection_next,
+        --       ['<C-k>'] = require('telescope.actions').move_selection_previous,
+        --     },
+        --   },
+        -- },
+        -- extensions = {
+        --   ['ui-select'] = {
+        --     require('telescope.themes').get_dropdown(),
+        --   },
+        -- },
+
+        -- ========================
       }
 
       -- Enable Telescope extensions if they are installed
