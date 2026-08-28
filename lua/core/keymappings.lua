@@ -2,7 +2,7 @@
 -- Modifiers map (case ignore)
 -----------------------------------
 
--- <cmd> = nvim terminal command start
+-- <cmd> = nvim terminal command start (must ends with <CR>)
 --`<CR>` = Enter
 --`<C->` = Ctrl
 --`<A->` = Alt
@@ -146,6 +146,7 @@ vim.keymap.set('x', 'p', 'P', { noremap = true, silent = true, desc = 'Paste wit
 vim.keymap.set('n', '<leader>mp', 'Iprint(<Esc>$A)<Esc>', { noremap = true, silent = true, desc = 'Move Line Into < print(*) >' })
 vim.keymap.set('n', '<leader>mm', '@1', { noremap = true, silent = true, desc = 'Macros 1 Exec' })
 vim.keymap.set('n', '<leader>ms', 'daW$a <Esc>px0', { noremap = true, silent = true, desc = 'Swap 2 words in 2 words line' })
+vim.keymap.set('n', '<leader>mr', '<cmd>!ruff check --fix %<CR>', { noremap = true, silent = true, desc = 'Fix Ruff warnings in file' })
 
 -- Docs Format
 vim.keymap.set('v', '<leader>md', function()
