@@ -532,15 +532,47 @@ vim.keymap.set('n', '<leader>r', function()
   }
 
   local cmd = commands[ft]
-  if cmd then
-    vim.cmd('!' .. cmd)
-  else
+  if not cmd then
     print('No runner for filetype: ' .. ft)
+    return
   end
-end, { noremap = true, silent = true, desc = 'Run Current File (auto type)' })
+
+  -- get clean output
+  local output = vim.fn.systemlist(cmd)
+  if #output == 0 then
+    output = { '[No output]' }
+  end
+
+  -- create window
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
+
+  local width = math.min(80, vim.o.columns - 10)
+  local height = math.min(#output + 2, vim.o.lines - 10)
+
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = 'editor',
+    width = width,
+    height = height,
+    row = math.floor((vim.o.lines - height) / 2),
+    col = math.floor((vim.o.columns - width) / 2),
+    style = 'minimal',
+    border = 'rounded',
+    title = { { ' Code Run ', 'FloatTitle' } },
+    title_pos = 'center',
+  })
+
+  -- window settings
+  vim.cmd 'stopinsert'
+  vim.bo[buf].modifiable = false
+  vim.keymap.set('n', '<Esc>', function()
+    if vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_close(win, true)
+    end
+  end, { buffer = buf, silent = true })
+end, { noremap = true, silent = true, desc = 'Run Current File (Popup)' })
 
 -- vim.keymap.set('n', '<Leader>R', '<cmd>Run<cr>', { noremap = true, silent = true, desc = 'Run with CodeRunner (Console stays)' })
---
 
 vim.keymap.set('n', '<leader>R', function()
   local file = vim.fn.expand '%'
